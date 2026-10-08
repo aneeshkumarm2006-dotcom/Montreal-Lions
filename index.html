@@ -69,7 +69,7 @@ button{font:inherit}
 /* ---------- Header ---------- */
 .site-head{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--red);color:#FFFFFF;border-bottom:1px solid var(--oxblood);--focus:#FFFFFF}
 .head-in{position:relative;max-width:1360px;margin:0 auto;padding-inline:var(--gutter);height:var(--head-h);display:grid;grid-template-columns:1fr auto 1fr;grid-template-areas:"menu crest lang";align-items:center;column-gap:12px}
-.crest{grid-area:crest;display:block;height:var(--crest-h);width:calc(var(--crest-h) * .6884);overflow:hidden}
+.crest{grid-area:crest;display:flex;align-items:center;justify-content:center;min-height:var(--crest-h);width:100px;text-decoration:none}
 .crest img{width:100%;height:auto}
 .menu-btn{grid-area:menu;justify-self:start;display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:8px 12px 8px 0;background:transparent;border:0;color:#FFFFFF;font:700 .75rem/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;cursor:pointer}
 .burger{position:relative;width:22px;height:14px}
@@ -111,7 +111,7 @@ button{font:inherit}
 .hero{position:relative;overflow:hidden;color:#FFFFFF;background:radial-gradient(120% 75% at 50% 0%,rgba(199,32,47,0) 35%,rgba(86,11,19,.6) 100%),var(--pinstripe),var(--red)}
 .hero-in{position:relative;max-width:1000px;margin:0 auto;padding:clamp(36px,6vw,72px) var(--gutter) clamp(48px,6vw,72px);display:flex;flex-direction:column;align-items:center;text-align:center}
 .hero-kicker{font:600 .75rem/1.3 var(--sans);letter-spacing:.3em;text-transform:uppercase;color:var(--on-red-soft)}
-.hero-logo{width:clamp(108px,12vw,150px);margin-top:22px;filter:drop-shadow(0 18px 26px rgba(60,6,12,.35))}
+.hero-logo{width:clamp(160px,20vw,240px);margin-top:22px;filter:drop-shadow(0 18px 26px rgba(60,6,12,.35))}
 .hero-rule{display:flex;align-items:center;gap:14px;margin-top:26px;font:700 .75rem/1.2 var(--sans);letter-spacing:.26em;text-transform:uppercase}
 .hero-rule::before,.hero-rule::after{content:"";width:clamp(28px,6vw,64px);height:1px;background:var(--gold)}
 .hero-rule svg{width:18px;height:11px;color:var(--gold);flex:0 0 auto}
@@ -293,7 +293,7 @@ button{font:inherit}
 /* ---------- Follow (pinstripe 2 of 2) ---------- */
 .follow{color:#FFFFFF;text-align:center;background:radial-gradient(110% 80% at 50% 100%,rgba(199,32,47,0) 35%,rgba(86,11,19,.6) 100%),var(--pinstripe),var(--red)}
 .follow-in{display:flex;flex-direction:column;align-items:center}
-.follow .crest-lg{height:84px;width:calc(84px * .6884);overflow:hidden}
+.follow .crest-lg{width:160px}
 .follow .crest-lg img{width:100%}
 .follow h2{margin-top:26px;font-size:clamp(2.3rem,6vw,4.6rem)}
 .follow .alt-line{margin-top:12px}
@@ -307,7 +307,7 @@ button{font:inherit}
 .foot{background:var(--black);color:rgba(255,255,255,.72);padding:48px 0 calc(32px + env(safe-area-inset-bottom,0px));font-size:.9375rem}
 .foot-grid{display:grid;gap:26px;align-items:center}
 @media (min-width:820px){.foot-grid{grid-template-columns:auto 1fr auto;gap:40px}}
-.foot-logo{width:62px}
+.foot-logo{width:100%;max-width:110px}
 .foot-tag{font:700 1rem/1.3 var(--serif);color:#FFFFFF;letter-spacing:.03em}
 .foot-league{margin-top:6px;font:600 .6875rem/1.4 var(--sans);letter-spacing:.24em;text-transform:uppercase}
 .foot-links{display:flex;flex-wrap:wrap;gap:10px 22px}
@@ -338,13 +338,13 @@ button{font:inherit}
 .gal-num{padding:10px 14px}
 @media(max-width:640px){.gal-grid{grid-template-columns:1fr 1fr;gap:8px}.gal-grid figure:first-child{grid-column:1/-1;grid-row:auto}.gal-grid figure:first-child img{height:auto}.gal-grid figure:last-child{grid-column:1/-1}}
 
-/* First-visit welcome: the intact crest rises into place. */
+/* First-visit welcome: the text wordmark rises into place. */
 .welcome{position:fixed;inset:0;z-index:200;background:radial-gradient(ellipse at 50% 45%,#8E1622 0%,#39080E 75%);color:white;display:grid;place-items:center;text-align:center;padding:30px;overflow:hidden;animation:welcomeAway .65s 3s ease-in-out forwards}
 .welcome::before{content:"";position:absolute;inset:20px;border:1px solid var(--gold-faint);pointer-events:none}
 .welcome-inner{position:relative;width:min(100%,640px)}
 .welcome-kicker{font:600 .7rem/1.4 var(--sans);letter-spacing:.38em;text-transform:uppercase;animation:welcomeText .7s .15s both}
 .welcome-stage{position:relative;width:300px;height:260px;max-width:100%;margin:18px auto;overflow:hidden}
-.welcome-mark{position:absolute;inset:22px 0;margin:auto;width:110px;height:208px;animation:crestRise 1.65s .15s cubic-bezier(.22,1,.36,1) both}
+.welcome-mark{position:absolute;inset:22px 0;margin:auto;width:240px;height:208px;display:flex;align-items:center;justify-content:center;animation:crestRise 1.65s .15s cubic-bezier(.22,1,.36,1) both}
 .welcome-mark img{width:100%;height:100%;filter:drop-shadow(0 12px 20px #21030766)}
 .welcome-title{font:700 clamp(1.7rem,4vw,3.2rem)/1.2 var(--serif);animation:welcomeText .8s 1.35s both}
 .welcome-line{height:1px;width:90px;margin:24px auto 0;background:var(--gold);animation:ruleDraw .8s 1.65s both}
@@ -353,11 +353,18 @@ button{font:inherit}
 @keyframes welcomeText{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 @keyframes welcomeAway{to{opacity:0;visibility:hidden;transform:scale(1.025)}}
 @media(prefers-reduced-motion:reduce){.welcome{display:none}.gal-grid img{transition:none}}
+
+/* Text branding: all photographic assets come from the supplied image folder. */
+.brand-wordmark{display:block;color:inherit;text-align:center;font-family:var(--serif);line-height:1.1;text-transform:uppercase}
+.brand-wordmark>span{display:block;font:600 .625rem/1.5 var(--sans);letter-spacing:.2em}
+.brand-wordmark>strong{display:block;font-size:1.6rem;letter-spacing:.06em}
+.hero-logo .brand-wordmark>strong,.welcome-mark .brand-wordmark>strong{font-size:clamp(2.5rem,5vw,3.5rem)}
+.hero-logo .brand-wordmark>span,.welcome-mark .brand-wordmark>span{font-size:.875rem;letter-spacing:.3em}
 </style>
 
 
 <div class="welcome" id="welcome" hidden role="dialog" aria-modal="true" aria-label="Welcome to Montreal Lions">
- <div class="welcome-inner"><p class="welcome-kicker">Montréal Lions</p><div class="welcome-stage" aria-hidden="true"><div class="welcome-mark"><img src="img/logo-on-dark.svg" width="169" height="318" alt=""></div></div><p class="welcome-title" id="welcome-title">Welcome to the Pride</p><div class="welcome-line"></div></div>
+ <div class="welcome-inner"><p class="welcome-kicker">Montréal Lions</p><div class="welcome-stage" aria-hidden="true"><div class="welcome-mark"><span class="brand-wordmark"><span>Montréal</span><strong>Lions</strong></span></div></div><p class="welcome-title" id="welcome-title">Welcome to the Pride</p><div class="welcome-line"></div></div>
  <button class="welcome-skip" id="welcome-skip" type="button">Enter the Pride ↗</button>
 </div>
 <script>
@@ -392,7 +399,7 @@ button{font:inherit}
         <li><a href="#schedule" data-i18n="nav.schedule">Schedule</a></li>
       </ul>
     </nav>
-    <a class="crest" href="#top"><img src="img/logo-on-dark.svg" width="169" height="318" alt="Montreal Lions, back to top" data-i18n-alt="aria.crest"></a>
+    <a class="crest" href="#top" aria-label="Montreal Lions, back to top" data-i18n-aria="aria.crest"><span class="brand-wordmark"><span>Montréal</span><strong>Lions</strong></span></a>
     <nav class="dnav dnav-r" aria-label="More sections" data-i18n-aria="aria.nav2">
       <ul>
         <li><a href="#roster" data-i18n="nav.roster">Roster</a></li>
@@ -424,7 +431,7 @@ button{font:inherit}
     <p class="hero-side r" aria-hidden="true">CNPL · Pro Pickleball</p>
     <div class="hero-in">
       <p class="hero-kicker" data-i18n="hero.kicker">Pro pickleball · Montréal</p>
-      <img class="hero-logo" src="img/logo-on-dark.svg" width="169" height="318" alt="Montreal Lions crest: a crowned lion in a shield above the MONTRÉAL LIONS wordmark" data-i18n-alt="hero.logoAlt">
+      <div class="hero-logo"><span class="brand-wordmark"><span>Montréal</span><strong>Lions</strong></span></div>
       <p class="hero-rule"><svg viewBox="0 0 24 14" aria-hidden="true"><path d="M1 13 3 3l5 5 4-7 4 7 5-5 2 10z" fill="currentColor"/></svg><span data-i18n="hero.champs">2024 CNPL Champions</span><svg viewBox="0 0 24 14" aria-hidden="true"><path d="M1 13 3 3l5 5 4-7 4 7 5-5 2 10z" fill="currentColor"/></svg></p>
       <h1 id="hero-h"><span data-i18n="hero.h1a">Pride in every point.</span> <span data-i18n="hero.h1b">Power in every play.</span></h1>
       <p class="alt-line"><span class="chip" data-other-code aria-hidden="true">FR</span><span data-other="hero.line" lang="fr">Fierté à chaque point. Puissance à chaque échange.</span></p>
@@ -436,7 +443,7 @@ button{font:inherit}
     </div>
     <div class="plate-wrap">
       <figure class="plate">
-        <img src="img/hero-team.webp" width="898" height="903" fetchpriority="high" alt="Four Montreal Lions players in red pinstripe jerseys holding their paddles on court, smiling" data-i18n-alt="plate.alt">
+        <img src="img/MontrealLionsIntro-12.jpg" width="3936" height="2624" fetchpriority="high" alt="Montreal Lions players in red jerseys standing together on court with their paddles" data-i18n-alt="plate.alt">
         <figcaption><span class="cap1" data-i18n="plate.cap">Welcome to the Pride</span><span class="cap2">Montreal Lions · CNPL</span></figcaption>
       </figure>
     </div>
@@ -452,7 +459,7 @@ button{font:inherit}
       <div class="cabinet">
         <article class="plaque">
           <div class="plaque-in">
-            <div class="plaque-media"><img src="img/trophy.webp" width="1179" height="678" loading="lazy" alt="The Lions, in blue CNPL shirts, lifting the gold championship trophy" data-i18n-alt="hon.y24.alt"></div>
+            <div class="plaque-media"><img src="img/MontrealLions-109.jpg" width="3936" height="2624" loading="lazy" alt="Montreal Lions players, staff and lion mascot posing together on court" data-i18n-alt="hon.y24.alt"></div>
             <div class="plaque-body">
               <p class="yr">2024</p>
               <h3 data-i18n="hon.y24.title">CNPL Champions</h3>
@@ -579,7 +586,7 @@ button{font:inherit}
       </div>
       <div class="roster-grid">
         <article class="pp">
-          <div class="pp-frame"><img src="img/stevie.webp" width="700" height="700" loading="lazy" alt="Portrait of Stevie Petropouleas in the Lions’ red pinstripe jersey and a black cap" data-i18n-alt="p1.alt"></div>
+          <div class="pp-frame"><img src="img/MontrealLionsIntro-13.jpg" width="3275" height="2620" loading="lazy" alt="Two Lions teammates in red jerseys preparing for doubles play" data-i18n-alt="p1.alt"></div>
           <h3 class="pp-name"><span class="first">Stevie</span> Petropouleas</h3>
           <p class="pp-quote" data-i18n="p1.q">“I’ve learned that every mistake is a lesson: learn, adapt, and become a better player.”</p>
           <button class="pp-btn" type="button" aria-expanded="false" aria-controls="tip-1"><span class="pm" aria-hidden="true"></span><span data-i18n="p1.btn">Signature tip</span></button>
@@ -590,7 +597,7 @@ button{font:inherit}
           </div></div>
         </article>
         <article class="pp">
-          <div class="pp-frame"><img src="img/ernesto.webp" width="700" height="700" loading="lazy" alt="Portrait of Ernesto Fajardo in the Lions’ red pinstripe jersey" data-i18n-alt="p2.alt"></div>
+          <div class="pp-frame"><img src="img/MontrealLionsIntro-37.jpg" width="3275" height="2620" loading="lazy" alt="Two Lions teammates in red jerseys ready on court with their paddles" data-i18n-alt="p2.alt"></div>
           <h3 class="pp-name"><span class="first">Ernesto</span> Fajardo</h3>
           <p class="pp-quote" data-i18n="p2.q">“I believe the true victory is found in every rally, not just the scoreboard.”</p>
           <button class="pp-btn" type="button" aria-expanded="false" aria-controls="tip-2"><span class="pm" aria-hidden="true"></span><span data-i18n="p2.btn">Signature tip</span></button>
@@ -601,7 +608,7 @@ button{font:inherit}
           </div></div>
         </article>
         <article class="pp">
-          <div class="pp-frame"><img src="img/anne-sophie.webp" width="700" height="700" loading="lazy" alt="Portrait of Anne-Sophie Courteau in the Lions’ red pinstripe jersey" data-i18n-alt="p3.alt"></div>
+          <div class="pp-frame"><img src="img/MontrealLions-116.jpg" width="3280" height="2624" loading="lazy" alt="Two Lions teammates smiling together on court with their paddles" data-i18n-alt="p3.alt"></div>
           <h3 class="pp-name"><span class="first">Anne-Sophie</span> Courteau</h3>
           <p class="pp-quote" data-i18n="p3.q">“For me, pickleball isn’t just about skills; it’s about the heart I put into every point.”</p>
           <button class="pp-btn" type="button" aria-expanded="false" aria-controls="tip-3"><span class="pm" aria-hidden="true"></span><span data-i18n="p3.btn">Signature tip</span></button>
@@ -612,7 +619,7 @@ button{font:inherit}
           </div></div>
         </article>
         <article class="pp">
-          <div class="pp-frame"><img src="img/louis-charles.webp" width="700" height="700" loading="lazy" alt="Portrait of Louis-Charles Amyot in the Lions’ red pinstripe jersey" data-i18n-alt="p4.alt"></div>
+          <div class="pp-frame"><img src="img/MontrealLionsIntro-36.jpg" width="3275" height="2620" loading="lazy" alt="Two Lions teammates covering the court during doubles play" data-i18n-alt="p4.alt"></div>
           <h3 class="pp-name"><span class="first">Louis-Charles</span> Amyot</h3>
           <p class="pp-quote" data-i18n="p4.q">“In pickleball, as in life, consistency and perseverance lead to greatness.”</p>
           <button class="pp-btn" type="button" aria-expanded="false" aria-controls="tip-4"><span class="pm" aria-hidden="true"></span><span data-i18n="p4.btn">Signature tip</span></button>
@@ -633,7 +640,7 @@ button{font:inherit}
         <p class="owner-kick">Rock &amp; Roar</p>
       </div>
       <figure class="owner-fig">
-        <img src="img/jay.webp" width="1900" height="910" loading="lazy" alt="Jay Devilliers mid-swing, paddle in hand, eyes on the ball" data-i18n-alt="owner.alt">
+        <img src="img/MontrealLionsIntro-24.jpg" width="3936" height="2624" loading="lazy" alt="Lions players and staff talking together beside the court" data-i18n-alt="owner.alt">
       </figure>
       <div class="owner-grid">
         <div>
@@ -656,7 +663,7 @@ button{font:inherit}
 
   <section class="lead-band sec on-dark" id="leadership" aria-labelledby="lead-h">
     <div class="wrap lead-grid">
-      <figure class="lead-fig"><img src="img/leadership.webp" width="720" height="720" loading="lazy" alt="Five Lions players in red on court with a member of the team’s leadership" data-i18n-alt="lead.alt"></figure>
+      <figure class="lead-fig"><img src="img/MontrealLions-108.jpg" width="3280" height="2624" loading="lazy" alt="Lions players and a member of staff smiling together on court" data-i18n-alt="lead.alt"></figure>
       <div>
         <p class="label" data-i18n="lead.label">On and off the court</p>
         <h2 class="sec-title" id="lead-h" data-i18n="lead.h">Pride in leadership</h2>
@@ -672,19 +679,19 @@ button{font:inherit}
         <h2 class="sec-title" id="gal-h" data-i18n="gal.h">Around the Pride</h2>
       </div>
       <div class="gal-grid">
-<figure><img src="img/gallery-1.webp" width="1800" height="1200" loading="lazy" alt="The Montreal Lions players, staff and lion mascot together on court" data-i18n-alt="gal.1"><span class="gal-num" aria-hidden="true">01</span></figure>
-<figure><img src="img/gallery-2.webp" width="1750" height="1400" loading="lazy" alt="Lions player reaching forward for a shot during a match" data-i18n-alt="gal.2"><span class="gal-num" aria-hidden="true">02</span></figure>
-<figure><img src="img/gallery-3.webp" width="1750" height="1400" loading="lazy" alt="Lions player in a red jersey preparing her paddle at the net" data-i18n-alt="gal.3"><span class="gal-num" aria-hidden="true">03</span></figure>
-<figure><img src="img/gallery-4.webp" width="1800" height="1200" loading="lazy" alt="Two Lions players with the lion mascot before play" data-i18n-alt="gal.4"><span class="gal-num" aria-hidden="true">04</span></figure>
-<figure><img src="img/gallery-5.webp" width="1800" height="1200" loading="lazy" alt="Players and staff gathering for a team huddle" data-i18n-alt="gal.5"><span class="gal-num" aria-hidden="true">05</span></figure>
-<figure><img src="img/gallery-6.webp" width="1750" height="1400" loading="lazy" alt="Lions doubles partners ready to receive on court" data-i18n-alt="gal.6"><span class="gal-num" aria-hidden="true">06</span></figure>
+<figure><img src="img/MontrealLions-110.jpg" width="3936" height="2624" loading="lazy" alt="The Montreal Lions players, staff and lion mascot together on court" data-i18n-alt="gal.1"><span class="gal-num" aria-hidden="true">01</span></figure>
+<figure><img src="img/MontrealLions-47.jpg" width="3155" height="2524" loading="lazy" alt="Lions player reaching forward for a shot during a match" data-i18n-alt="gal.2"><span class="gal-num" aria-hidden="true">02</span></figure>
+<figure><img src="img/MontrealLionsIntro-17.jpg" width="3275" height="2620" loading="lazy" alt="Lions player in a red jersey preparing her paddle at the net" data-i18n-alt="gal.3"><span class="gal-num" aria-hidden="true">03</span></figure>
+<figure><img src="img/MontrealLionsIntro-8.jpg" width="3936" height="2624" loading="lazy" alt="Two Lions players with the lion mascot before play" data-i18n-alt="gal.4"><span class="gal-num" aria-hidden="true">04</span></figure>
+<figure><img src="img/MontrealLions-96.jpg" width="3936" height="2624" loading="lazy" alt="Players and staff gathering for a team huddle" data-i18n-alt="gal.5"><span class="gal-num" aria-hidden="true">05</span></figure>
+<figure><img src="img/MontrealLionsIntro-13.jpg" width="3275" height="2620" loading="lazy" alt="Lions doubles partners ready to receive on court" data-i18n-alt="gal.6"><span class="gal-num" aria-hidden="true">06</span></figure>
       </div>
     </div>
   </section>
 
   <section class="follow sec on-dark" id="follow" aria-labelledby="follow-h">
     <div class="wrap follow-in">
-      <div class="crest-lg"><img src="img/logo-on-dark.svg" width="169" height="318" loading="lazy" alt="Montreal Lions crest" data-i18n-alt="crestAlt"></div>
+      <div class="crest-lg"><span class="brand-wordmark"><span>Montréal</span><strong>Lions</strong></span></div>
       <h2 id="follow-h" data-i18n="follow.h">Follow the Pride</h2>
       <p class="alt-line"><span class="chip" data-other-code aria-hidden="true">FR</span><span data-other="follow.h" lang="fr">Suivez les Lions</span></p>
       <p class="follow-p" data-i18n="follow.p">Match days, team news and behind-the-scenes moments, on Instagram and Facebook.</p>
@@ -701,7 +708,7 @@ button{font:inherit}
 <footer class="foot on-dark">
   <div class="wrap">
     <div class="foot-grid">
-      <img class="foot-logo" src="img/logo-on-dark.svg" width="169" height="318" loading="lazy" alt="Montreal Lions crest" data-i18n-alt="crestAlt">
+      <div class="foot-logo"><span class="brand-wordmark"><span>Montréal</span><strong>Lions</strong></span></div>
       <div>
         <p class="foot-tag" data-i18n="hero.line">Pride in every point. Power in every play.</p>
         <p class="foot-league">Montreal Lions · Canadian National Pickleball League</p>
@@ -739,13 +746,13 @@ button{font:inherit}
       "hero.lead": "Canada’s premier force on the pro pickleball scene. Welcome to the Pride.",
       "hero.cta1": "2026 schedule",
       "hero.cta2": "Follow @montreallions",
-      "plate.alt": "Four Montreal Lions players in red pinstripe jerseys holding their paddles on court, smiling",
+      "plate.alt": "Montreal Lions players in red jerseys standing together on court with their paddles",
       "plate.cap": "Welcome to the Pride",
       "hon.label": "The trophy cabinet",
       "hon.h": "Honours",
       "hon.y24.title": "CNPL Champions",
       "hon.y24.sub": "Champions of the Canadian National Pickleball League.",
-      "hon.y24.alt": "The Lions, in blue CNPL shirts, lifting the gold championship trophy",
+      "hon.y24.alt": "Montreal Lions players, staff and lion mascot posing together on court",
       "hon.y25.badge": "1st place",
       "hon.y25.title": "Undefeated start",
       "hon.y25.sub": "Opened the 2025 season with a perfect 6-0 record, in 1st place.",
@@ -777,32 +784,32 @@ button{font:inherit}
       "roster.intro": "Four players, four signature tips. Open a plate to learn how each Lion plays the game.",
       "tip.why": "Why it matters",
       "tip.how": "How I do it",
-      "p1.alt": "Portrait of Stevie Petropouleas in the Lions’ red pinstripe jersey and a black cap",
+      "p1.alt": "Two Lions teammates in red jerseys preparing for doubles play",
       "p1.q": "“I’ve learned that every mistake is a lesson: learn, adapt, and become a better player.”",
       "p1.btn": "Signature tip",
       "p1.tip": "Communicate with your partner.",
       "p1.why": "Communication ensures coordination, prevents confusion and strengthens teamwork.",
       "p1.how": "“I call shots and let my partner know when I’m moving or covering a specific area.”",
-      "p2.alt": "Portrait of Ernesto Fajardo in the Lions’ red pinstripe jersey",
+      "p2.alt": "Two Lions teammates in red jerseys ready on court with their paddles",
       "p2.q": "“I believe the true victory is found in every rally, not just the scoreboard.”",
       "p2.btn": "Signature tip",
       "p2.tip": "Master the dink shot.",
       "p2.why": "The dink controls the game, forces movement and creates attacking chances in the kitchen.",
       "p2.how": "“I keep my dinks low and place them strategically to force my opponent to move and make mistakes.”",
-      "p3.alt": "Portrait of Anne-Sophie Courteau in the Lions’ red pinstripe jersey",
+      "p3.alt": "Two Lions teammates smiling together on court with their paddles",
       "p3.q": "“For me, pickleball isn’t just about skills; it’s about the heart I put into every point.”",
       "p3.btn": "Signature tip",
       "p3.tip": "Focus on a solid serve.",
       "p3.why": "A solid serve sets the tone and gives you control.",
       "p3.how": "“I keep my serve consistent and deep, mixing in spin and targeting different areas to keep my opponent guessing.”",
-      "p4.alt": "Portrait of Louis-Charles Amyot in the Lions’ red pinstripe jersey",
+      "p4.alt": "Two Lions teammates covering the court during doubles play",
       "p4.q": "“In pickleball, as in life, consistency and perseverance lead to greatness.”",
       "p4.btn": "Signature tip",
       "p4.tip": "Stay in the ready position.",
       "p4.why": "Quick reactions, balance and shot anticipation.",
       "p4.how": "“I stay balanced with my paddle in front of me, ready to move quickly in any direction.”",
       "owner.label": "From the owner’s box",
-      "owner.alt": "Jay Devilliers mid-swing, paddle in hand, eyes on the ball",
+      "owner.alt": "Lions players and staff talking together beside the court",
       "owner.role": "Owner · Professional player",
       "owner.l1k": "Born", "owner.l1v": "France",
       "owner.l2k": "Pickleball since",
@@ -810,7 +817,7 @@ button{font:inherit}
       "owner.l4k": "Success in", "owner.l4v": "All three divisions",
       "owner.p1": "Celebrated professional pickleball player and one of the proud owners of the Montreal Lions. A dominant force in pro pickleball, his dynamic athleticism and precision shot-making have earned him success across all three divisions.",
       "owner.p2": "The French-born former soccer and tennis player switched to pickleball in 2019 and rose quickly to elite status. Off the court he’s a global ambassador for the sport, growing it internationally and inspiring the next generation.",
-      "lead.alt": "Five Lions players in red on court with a member of the team’s leadership",
+      "lead.alt": "Lions players and a member of staff smiling together on court",
       "lead.label": "On and off the court",
       "lead.h": "Pride in leadership",
       "lead.p": "We take pride in leadership on and off the court, empowering our team to inspire, elevate, and lead with passion and integrity.",
@@ -847,13 +854,13 @@ button{font:inherit}
       "hero.lead": "La force de premier plan du pickleball professionnel au Canada. Bienvenue dans la meute.",
       "hero.cta1": "Calendrier 2026",
       "hero.cta2": "Suivez @montreallions",
-      "plate.alt": "Quatre joueurs des Lions en maillot rouge à fines rayures, raquette en main sur le terrain, tout sourire",
+      "plate.alt": "Les joueurs des Lions en maillot rouge réunis sur le terrain, raquette en main",
       "plate.cap": "Bienvenue dans la meute",
       "hon.label": "La vitrine des trophées",
       "hon.h": "Palmarès",
       "hon.y24.title": "Champions de la CNPL",
       "hon.y24.sub": "Champions de la Canadian National Pickleball League.",
-      "hon.y24.alt": "Les Lions, en chandails bleus de la CNPL, soulèvent le trophée doré du championnat",
+      "hon.y24.alt": "Les joueurs, le personnel et la mascotte des Lions réunis sur le terrain",
       "hon.y25.badge": "1re place",
       "hon.y25.title": "Départ parfait",
       "hon.y25.sub": "Saison 2025 lancée avec une fiche parfaite de 6-0, au 1er rang.",
@@ -886,32 +893,32 @@ button{font:inherit}
       "roster.intro": "Quatre joueurs, quatre conseils signature. Ouvrez une plaque pour découvrir le jeu de chaque Lion.",
       "tip.why": "Pourquoi c’est important",
       "tip.how": "Comment je m’y prends",
-      "p1.alt": "Portrait de Stevie Petropouleas, en maillot rouge rayé des Lions et casquette noire",
+      "p1.alt": "Deux coéquipières des Lions en maillot rouge se préparent pour un match en double",
       "p1.q": "«" + NB + "J’ai appris que chaque erreur est une leçon" + NB + ": apprendre, s’adapter et devenir une meilleure joueuse." + NB + "»",
       "p1.btn": "Le conseil de Stevie",
       "p1.tip": "Communiquez avec votre partenaire.",
       "p1.why": "La communication assure la coordination, évite la confusion et renforce l’esprit d’équipe.",
       "p1.how": "«" + NB + "J’annonce mes coups et j’avise ma ou mon partenaire quand je me déplace ou que je couvre une zone précise." + NB + "»",
-      "p2.alt": "Portrait d’Ernesto Fajardo, en maillot rouge rayé des Lions",
+      "p2.alt": "Deux coéquipiers des Lions en maillot rouge prêts sur le terrain, raquette en main",
       "p2.q": "«" + NB + "Je crois que la vraie victoire se trouve dans chaque échange, pas seulement au tableau." + NB + "»",
       "p2.btn": "Le conseil d’Ernesto",
       "p2.tip": "Maîtrisez le dink.",
       "p2.why": "Le dink contrôle le jeu, force l’adversaire à bouger et crée des occasions d’attaque dans la cuisine.",
       "p2.how": "«" + NB + "Je garde mes dinks bas et je les place stratégiquement pour forcer mon adversaire à bouger et à commettre des erreurs." + NB + "»",
-      "p3.alt": "Portrait d’Anne-Sophie Courteau, en maillot rouge rayé des Lions",
+      "p3.alt": "Deux coéquipières des Lions sourient sur le terrain, raquette en main",
       "p3.q": "«" + NB + "Pour moi, le pickleball, ce n’est pas juste une question d’habiletés" + NB + "; c’est le cœur que je mets dans chaque point." + NB + "»",
       "p3.btn": "Le conseil d’Anne-Sophie",
       "p3.tip": "Misez sur un service solide.",
       "p3.why": "Un bon service donne le ton et vous met en contrôle.",
       "p3.how": "«" + NB + "Je garde mon service constant et profond, j’y ajoute de l’effet et je vise différentes zones pour que mon adversaire ne sache jamais à quoi s’attendre." + NB + "»",
-      "p4.alt": "Portrait de Louis-Charles Amyot, en maillot rouge rayé des Lions",
+      "p4.alt": "Deux coéquipiers des Lions couvrent le terrain pendant un match en double",
       "p4.q": "«" + NB + "Au pickleball comme dans la vie, la constance et la persévérance mènent à la grandeur." + NB + "»",
       "p4.btn": "Le conseil de Louis-Charles",
       "p4.tip": "Restez en position prête.",
       "p4.why": "Des réactions rapides, un bon équilibre et une meilleure anticipation des coups.",
       "p4.how": "«" + NB + "Je reste bien équilibré, la raquette devant moi, prêt à partir rapidement dans n’importe quelle direction." + NB + "»",
       "owner.label": "La loge du propriétaire",
-      "owner.alt": "Jay Devilliers en plein élan, raquette en main, les yeux sur la balle",
+      "owner.alt": "Les joueurs et le personnel des Lions échangent au bord du terrain",
       "owner.role": "Propriétaire · joueur professionnel",
       "owner.l1k": "Origine", "owner.l1v": "France",
       "owner.l2k": "Pickleball depuis",
@@ -919,7 +926,7 @@ button{font:inherit}
       "owner.l4k": "Succès", "owner.l4v": "Dans les trois divisions",
       "owner.p1": "Joueur de pickleball professionnel reconnu et l’un des fiers propriétaires des Lions de Montréal. Force dominante du pickleball pro, il a connu du succès dans les trois divisions grâce à son athlétisme explosif et à la précision de ses coups.",
       "owner.p2": "Né en France, cet ancien joueur de soccer et de tennis est passé au pickleball en 2019 et s’est rapidement hissé parmi l’élite. Hors du terrain, il est un ambassadeur du sport à l’échelle mondiale" + NB + ": il contribue à son essor à l’international et inspire la relève.",
-      "lead.alt": "Cinq joueurs des Lions en rouge sur le terrain, avec un membre de la direction de l’équipe",
+      "lead.alt": "Des joueurs des Lions et un membre du personnel sourient sur le terrain",
       "lead.label": "Sur le terrain et en dehors",
       "lead.h": "Fiers de mener",
       "lead.p": "Nous sommes fiers de notre leadership, sur le terrain comme en dehors" + NB + ": nous donnons à notre équipe les moyens d’inspirer, de s’élever et de mener avec passion et intégrité.",
