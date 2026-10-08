@@ -1,7 +1,7 @@
 <!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style><title>Montreal Lions</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Figtree:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Cinzel:wght@600;700;800&family=Figtree:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 <style>
 :root{
   color-scheme: light;
@@ -354,6 +354,128 @@ button{font:inherit}
 @keyframes welcomeAway{to{opacity:0;visibility:hidden;transform:scale(1.025)}}
 @media(prefers-reduced-motion:reduce){.welcome{display:none}.gal-grid img{transition:none}}
 
+/* =====================================================================
+   Display type, grain and scroll-driven motion layer.
+   Static design rules apply everywhere; anything under .motion only runs
+   when the motion script is active (never with reduced motion).
+   ===================================================================== */
+:root{--display:"Anton","Impact","Haettenschweiler","Arial Narrow Bold",sans-serif;--ease-out:cubic-bezier(.2,.7,.1,1);--ease-io:cubic-bezier(.7,0,.2,1)}
+main{position:relative}
+
+/* Condensed display type for the loud moments */
+.big-num{font:400 clamp(5rem,12vw,9rem)/.85 var(--display);letter-spacing:.01em}
+.big-num.tick{animation:sbTick .14s ease-out}
+@keyframes sbTick{from{transform:translateY(-6px);opacity:.55}to{transform:none;opacity:1}}
+.season-year{font:400 clamp(5.5rem,9vw,9rem)/.9 var(--display);letter-spacing:.01em}
+.roster h2{font:400 clamp(3.4rem,9vw,8rem)/.88 var(--display);text-transform:uppercase;letter-spacing:.005em}
+.owner h2{font:400 clamp(3.6rem,9.5vw,8.4rem)/.88 var(--display);text-transform:uppercase;letter-spacing:.005em}
+.gal-num{font:400 1.5rem/1 var(--display);letter-spacing:.04em;padding:10px 14px}
+.roster-grid{counter-reset:pl}
+.pp{counter-increment:pl}
+.pp-name::before{content:counter(pl,decimal-leading-zero);display:block;font:400 2rem/1 var(--display);color:var(--red);letter-spacing:.02em;margin-bottom:10px}
+.stamp{display:inline-block;padding:6px 9px;border:1.5px solid currentColor;border-radius:3px;font-weight:700;transform:rotate(-6deg)}
+
+/* Hero: giant outlined words behind the crest */
+.hero-in,.plate-wrap{z-index:1}
+.hero-mega{position:absolute;inset:0 0 34% 0;pointer-events:none;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
+.mega-row{font:400 clamp(6rem,19vw,17rem)/.86 var(--display);text-transform:uppercase;white-space:nowrap;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.17);will-change:translate}
+.mega-row.r2{color:rgba(255,255,255,.055);-webkit-text-stroke:0;margin-left:-30vw}
+.plate-media{overflow:hidden}
+.plate-media img{will-change:scale}
+
+/* Film grain over the dark and red bands */
+.hero,.honours,.owner,.lead-band,.follow,.foot{position:relative;isolation:isolate}
+.hero::after,.honours::after,.owner::after,.lead-band::after,.follow::after,.foot::after{content:"";position:absolute;inset:0;z-index:4;pointer-events:none;opacity:.11;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* Scroll progress line under the header */
+.scroll-prog{position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;pointer-events:none;z-index:2}
+
+/* Flying pickleball */
+.ball{display:none;position:absolute;left:0;top:0;width:clamp(36px,4.4vw,60px);aspect-ratio:1;z-index:6;pointer-events:none;will-change:transform;filter:drop-shadow(0 14px 16px rgba(30,4,8,.35))}
+.ball svg{display:block;width:100%;height:100%}
+.motion .ball{display:block}
+.ball.landed svg{animation:ballLand .7s cubic-bezier(.3,1.5,.5,1)}
+@keyframes ballLand{0%{transform:translateY(-14px) scale(1.05,.95)}40%{transform:translateY(0) scale(1.12,.86)}100%{transform:none}}
+
+/* Schedule route line */
+.route-wrap{position:relative}
+.route{display:none}
+.motion .route-wrap{padding-left:34px}
+.motion .route{display:block;position:absolute;left:9px;top:0;bottom:0;width:2px;background:#D9D1C6}
+.route-fill{position:absolute;inset:0;background:var(--red);transform-origin:top;transform:scaleY(0)}
+.route-ball{position:absolute;left:50%;top:0;width:18px;height:18px;margin:-9px 0 0 -9px;border-radius:50%;background:radial-gradient(circle at 36% 30%,#FFF7B8,#F2D43D 45%,#B8951F);box-shadow:0 4px 10px rgba(30,4,8,.3)}
+.motion .tkt::before{content:"";position:absolute;left:-30px;top:50%;width:12px;height:12px;margin-top:-6px;border-radius:50%;background:#F3F0EA;border:2px solid #CFC7BD;transition:background-color .3s,border-color .3s,transform .3s}
+.motion .tkt.passed::before{background:var(--red);border-color:var(--red);transform:scale(1.15)}
+.motion .tkt[data-status="next"]{border-left:0}
+.motion .tkt .stamp{transition:opacity .25s .3s,transform .55s .3s cubic-bezier(.3,1.6,.5,1)}
+.motion .tkt:not(.in) .stamp{opacity:0;transform:scale(2) rotate(-20deg)}
+
+/* Reveals */
+.motion [data-rv]{transition:opacity .9s var(--ease-out) var(--d,0s),transform .9s var(--ease-out) var(--d,0s),clip-path 1.1s var(--ease-io) var(--d,0s)}
+.motion .tkt[data-rv]{transition:opacity .8s var(--ease-out) var(--d,0s),transform .8s var(--ease-out) var(--d,0s),background-color .2s,padding .2s}
+.motion [data-rv="up"]:not(.in),.motion .tkt[data-rv]:not(.in){opacity:0;transform:translateY(34px)}
+.motion [data-rv="title"]:not(.in){clip-path:inset(0 0 100% 0);transform:translateY(.4em)}
+.motion [data-rv="title"].in{clip-path:inset(0 0 0 0)}
+.motion [data-rv="title"].rv-done{clip-path:none}
+.motion [data-rv="big"]:not(.in){opacity:0;transform:scale(1.35);letter-spacing:.12em}
+.motion [data-rv="big"]{transform-origin:left bottom;transition:opacity .9s var(--ease-out),transform 1.2s var(--ease-out),letter-spacing 1.2s var(--ease-out)}
+.motion [data-rv="crest"]:not(.in){opacity:0;transform:perspective(700px) rotateY(200deg) scale(.6)}
+.motion [data-rv="crest"]{transition:opacity .6s ease,transform 1.4s var(--ease-out)}
+/* Red curtain wipe over photos */
+.motion [data-curtain]{position:relative;overflow:hidden}
+.motion [data-curtain]::before{content:"";position:absolute;inset:0;z-index:3;background:var(--curtain,var(--red));transform-origin:50% 0;transition:transform 1.1s var(--ease-io) var(--d,0s);pointer-events:none}
+.motion [data-curtain].in::before{transform:scaleY(0)}
+.motion [data-curtain] img{transition:scale 1.6s var(--ease-out) var(--d,0s),transform .6s ease}
+.motion [data-curtain]:not(.in) img{scale:1.18}
+.motion .lead-band [data-curtain]{--curtain:var(--black)}
+.motion .honours [data-curtain]{--curtain:var(--red)}
+.motion .plaque-media img{will-change:scale}
+
+/* Hover tilt with a red glow */
+.tilt{box-shadow:0 34px 60px -26px rgba(199,32,47,.6)}
+
+/* Owner portrait: particles assemble into the photo */
+.owner-fig{position:relative}
+.owner-canvas{position:absolute;left:0;top:10px;width:100%;height:calc(100% - 20px);filter:grayscale(1) contrast(1.08);pointer-events:none}
+.owner-fig img{transition:opacity .35s}
+
+/* Roster: pinned lineup, one Lion at a time (wide screens) */
+.lineup-bar{display:none}
+.lineup-on .roster{padding:0}
+.lineup-on .lineup-stage{position:sticky;top:var(--head-h);height:calc(100vh - var(--head-h));overflow:hidden;overflow:clip;display:flex;flex-direction:column;justify-content:center;padding-block:20px}
+.lineup-on .roster-head{margin-bottom:clamp(16px,3vh,32px)}
+.lineup-on .roster h2{font-size:clamp(3.2rem,min(9vw,12vh),8rem)}
+.lineup-on .roster-grid{display:flex;gap:80px;width:max-content;will-change:translate}
+.lineup-on .pp{width:var(--card-w,1120px);grid-row:auto;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);grid-template-rows:auto auto 1fr;column-gap:clamp(32px,4vw,64px);align-items:start;transform-origin:50% 60%}
+.lineup-on .pp-frame{grid-column:1;grid-row:1/4;padding:10px}
+.lineup-on .pp-frame img{aspect-ratio:auto;height:min(50vh,560px);scale:1.12}
+.lineup-on .pp-name,.lineup-on .pp-quote,.lineup-on .pp-btn{grid-column:2}
+.lineup-on .pp-name{margin-top:4px;font:400 clamp(2.6rem,4.2vw,4.6rem)/.9 var(--display);text-transform:uppercase;letter-spacing:.005em}
+.lineup-on .pp-name .first{font:700 1rem/1 var(--serif);letter-spacing:.2em;margin-bottom:14px;text-transform:none}
+.lineup-on .pp-name::before{content:counter(pl,decimal-leading-zero) " / 04";font:700 .75rem/1 var(--sans);letter-spacing:.3em;color:var(--mute);margin-bottom:22px}
+.lineup-on .pp-quote{margin-top:22px;font-size:clamp(1.1rem,1.5vw,1.35rem);max-width:30ch}
+.lineup-on .pp-btn{margin-top:26px}
+.lineup-on .pp-tipwrap{grid-column:1;grid-row:1/4;align-self:end;position:relative;z-index:4;padding:0 20px 20px;pointer-events:none}
+.lineup-on .pp-tip{pointer-events:auto;box-shadow:0 20px 40px -20px rgba(0,0,0,.6)}
+.lineup-on .lineup-bar{display:block;margin-top:clamp(16px,3vh,28px);height:2px;background:var(--rule)}
+.lineup-on .lineup-bar span{display:block;height:100%;background:var(--red);transform:scaleX(0);transform-origin:left}
+
+/* Gallery: horizontal film strip (wide screens) */
+.strip-on .gallery{padding:0}
+.strip-on .strip-stage{position:sticky;top:var(--head-h);height:calc(100vh - var(--head-h));overflow:hidden;overflow:clip;display:flex;flex-direction:column;justify-content:center}
+.strip-on .gal-grid{display:flex;gap:18px;width:max-content;will-change:translate}
+.strip-on .gal-grid figure,.strip-on .gal-grid figure:first-child,.strip-on .gal-grid figure:last-child{flex:0 0 auto;height:min(56vh,560px);aspect-ratio:3/2;grid-column:auto;grid-row:auto;overflow:hidden}
+.strip-on .gal-grid img,.strip-on .gal-grid figure:first-child img{width:100%;height:100%;aspect-ratio:auto;object-fit:cover;background:none;scale:1.16}
+.strip-on .gal-num{font-size:2.6rem;padding:12px 18px}
+
+/* Custom cursor */
+.cursor{position:fixed;left:0;top:0;z-index:300;pointer-events:none;mix-blend-mode:difference;opacity:0;transition:opacity .3s}
+.cursor i{display:block;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:#FFFFFF;transition:transform .3s var(--ease-out)}
+.cursor.on{opacity:1}
+.cursor.big i{transform:scale(4.6)}
+@media (hover:none),(pointer:coarse){.cursor{display:none}}
+@media (prefers-reduced-motion:reduce){.ball,.cursor,.route{display:none!important}.big-num.tick{animation:none}}
+
 </style>
 
 
@@ -379,6 +501,7 @@ button{font:inherit}
 <a class="skip" href="#main" data-i18n="skip">Skip to content</a>
 
 <header class="site-head" id="site-head">
+  <span class="scroll-prog" aria-hidden="true"></span>
   <div class="head-in">
     <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="mnav"><span class="burger" aria-hidden="true"><span></span></span><span data-i18n="nav.menu">Menu</span></button>
     <div class="lang" role="group" aria-label="Language" data-i18n-aria="aria.lang">
@@ -419,8 +542,13 @@ button{font:inherit}
 </header>
 
 <main id="main">
+  <div class="ball" aria-hidden="true"><svg viewBox="0 0 64 64"><defs><radialGradient id="ballg" cx="36%" cy="30%" r="75%"><stop offset="0" stop-color="#FFF7B8"/><stop offset=".45" stop-color="#F2D43D"/><stop offset="1" stop-color="#B8951F"/></radialGradient></defs><circle cx="32" cy="32" r="31" fill="url(#ballg)"/><g fill="#9C7E16" opacity=".55"><circle cx="32" cy="14" r="3.2"/><circle cx="18" cy="24" r="3.2"/><circle cx="46" cy="24" r="3.2"/><circle cx="32" cy="32" r="3.2"/><circle cx="20" cy="42" r="3.2"/><circle cx="44" cy="42" r="3.2"/><circle cx="32" cy="51" r="3.2"/><circle cx="9" cy="34" r="2.6"/><circle cx="55" cy="34" r="2.6"/></g></svg></div>
 
   <section class="hero on-dark" id="top" aria-labelledby="hero-h">
+    <div class="hero-mega" aria-hidden="true">
+      <p class="mega-row r1" data-i18n="hero.mega1">Pride · Power · Roar · Pride · Power · Roar ·</p>
+      <p class="mega-row r2" data-i18n="hero.mega2">Montréal · Lions · CNPL · Montréal · Lions · CNPL ·</p>
+    </div>
     <p class="hero-side l" aria-hidden="true">Montréal · Québec</p>
     <p class="hero-side r" aria-hidden="true">CNPL · Pro Pickleball</p>
     <div class="hero-in">
@@ -437,7 +565,7 @@ button{font:inherit}
     </div>
     <div class="plate-wrap">
       <figure class="plate">
-        <img src="img/MontrealLionsIntro-12.jpg" width="3936" height="2624" fetchpriority="high" alt="Montreal Lions players in red jerseys standing together on court with their paddles" data-i18n-alt="plate.alt">
+        <div class="plate-media"><img src="img/MontrealLionsIntro-12.jpg" width="3936" height="2624" fetchpriority="high" alt="Montreal Lions players in red jerseys standing together on court with their paddles" data-i18n-alt="plate.alt"></div>
         <figcaption><span class="cap1" data-i18n="plate.cap">Welcome to the Pride</span><span class="cap2">Montreal Lions · CNPL</span></figcaption>
       </figure>
     </div>
@@ -466,7 +594,7 @@ button{font:inherit}
             <div class="plaque-in"><div class="plaque-body">
               <p class="yr">2025</p>
               <div class="score">
-                <p class="big-num" aria-hidden="true">6–0</p>
+                <p class="big-num" aria-hidden="true"><span class="sb-l">6</span>–<span class="sb-r">0</span></p>
                 <p class="badge" data-i18n="hon.y25.badge">1st place</p>
               </div>
               <h3 data-i18n="hon.y25.title">Undefeated start</h3>
@@ -524,6 +652,8 @@ button{font:inherit}
         </div>
       </div>
 
+      <div class="route-wrap">
+      <span class="route" aria-hidden="true"><span class="route-fill"></span><span class="route-ball"></span></span>
       <ol class="tkts" id="tkts">
         <li class="tkt" data-start="2026-05-09" data-end="2026-05-10" data-status="played">
           <div class="tkt-stub"><span class="tkt-no"><span data-i18n="sched.no">No.</span> 01</span><span class="sr-only tkt-full">May 9–10, 2026</span><span class="tkt-mon" aria-hidden="true">May</span><span class="tkt-dd" aria-hidden="true">9–10</span><span class="tkt-days" aria-hidden="true">Sat–Sun</span><span class="tkt-yr" aria-hidden="true">2026</span></div>
@@ -566,15 +696,17 @@ button{font:inherit}
           <div class="tkt-status"><span class="stamp" data-i18n="st.played">Played</span></div>
         </li>
       </ol>
+      </div>
     </div>
   </section>
 
   <section class="roster sec on-light" id="roster" aria-labelledby="roster-h">
+    <div class="lineup-stage">
     <div class="wrap">
       <div class="roster-head">
         <div>
-          <p class="label" data-i18n="roster.label">The roster</p>
-          <h2 class="sec-title" id="roster-h" data-i18n="roster.h">Meet the Lions</h2>
+          <p class="label" data-i18n="roster.label">Meet the Lions</p>
+          <h2 class="sec-title" id="roster-h" data-i18n="roster.h">The lineup.</h2>
         </div>
         <p class="roster-intro" data-i18n="roster.intro">Four players, four signature tips. Open a plate to learn how each Lion plays the game.</p>
       </div>
@@ -624,6 +756,8 @@ button{font:inherit}
           </div></div>
         </article>
       </div>
+      <div class="lineup-bar" aria-hidden="true"><span></span></div>
+    </div>
     </div>
   </section>
 
@@ -667,6 +801,7 @@ button{font:inherit}
   </section>
 
   <section class="gallery sec on-light" id="gallery" aria-labelledby="gal-h">
+    <div class="strip-stage">
     <div class="wrap">
       <div class="gal-head">
         <p class="label" data-i18n="gal.label">Gallery</p>
@@ -680,6 +815,7 @@ button{font:inherit}
 <figure><img src="img/MontrealLions-96.jpg" width="3936" height="2624" loading="lazy" alt="Players and staff gathering for a team huddle" data-i18n-alt="gal.5"><span class="gal-num" aria-hidden="true">05</span></figure>
 <figure><img src="img/MontrealLionsIntro-13.jpg" width="3275" height="2620" loading="lazy" alt="Lions doubles partners ready to receive on court" data-i18n-alt="gal.6"><span class="gal-num" aria-hidden="true">06</span></figure>
       </div>
+    </div>
     </div>
   </section>
 
@@ -740,6 +876,8 @@ button{font:inherit}
       "hero.lead": "Canada’s premier force on the pro pickleball scene. Welcome to the Pride.",
       "hero.cta1": "2026 schedule",
       "hero.cta2": "Follow @montreallions",
+      "hero.mega1": "Pride · Power · Roar · Pride · Power · Roar ·",
+      "hero.mega2": "Montréal · Lions · CNPL · Montréal · Lions · CNPL ·",
       "plate.alt": "Montreal Lions players in red jerseys standing together on court with their paddles",
       "plate.cap": "Welcome to the Pride",
       "hon.label": "The trophy cabinet",
@@ -773,8 +911,8 @@ button{font:inherit}
       "st.played": "Played", "st.next": "Next up", "st.upcoming": "Upcoming",
       "ev1.gloss": "", "ev2.gloss": "", "ev3.gloss": "", "ev4.gloss": "",
       "ev5.gloss": "", "ev6.gloss": "", "ev7.gloss": "", "ev8.gloss": "",
-      "roster.label": "The roster",
-      "roster.h": "Meet the Lions",
+      "roster.label": "Meet the Lions",
+      "roster.h": "The lineup.",
       "roster.intro": "Four players, four signature tips. Open a plate to learn how each Lion plays the game.",
       "tip.why": "Why it matters",
       "tip.how": "How I do it",
@@ -848,6 +986,8 @@ button{font:inherit}
       "hero.lead": "La force de premier plan du pickleball professionnel au Canada. Bienvenue dans la meute.",
       "hero.cta1": "Calendrier 2026",
       "hero.cta2": "Suivez @montreallions",
+      "hero.mega1": "Fierté · Puissance · Meute · Fierté · Puissance · Meute ·",
+      "hero.mega2": "Montréal · Lions · CNPL · Montréal · Lions · CNPL ·",
       "plate.alt": "Les joueurs des Lions en maillot rouge réunis sur le terrain, raquette en main",
       "plate.cap": "Bienvenue dans la meute",
       "hon.label": "La vitrine des trophées",
@@ -882,8 +1022,8 @@ button{font:inherit}
       "ev1.gloss": "Ouverture de la saison", "ev2.gloss": "Étape de l’Ouest", "ev3.gloss": "Étape de l’Est",
       "ev4.gloss": "Étape de mi-saison", "ev5.gloss": "Étape métropolitaine", "ev6.gloss": "Étape du Centre",
       "ev7.gloss": "Finale de la saison", "ev8.gloss": "Séries éliminatoires",
-      "roster.label": "L’alignement",
-      "roster.h": "Les Lions",
+      "roster.label": "Les Lions",
+      "roster.h": "L’alignement.",
       "roster.intro": "Quatre joueurs, quatre conseils signature. Ouvrez une plaque pour découvrir le jeu de chaque Lion.",
       "tip.why": "Pourquoi c’est important",
       "tip.how": "Comment je m’y prends",
@@ -1075,5 +1215,457 @@ button{font:inherit}
       if (panel) { panel.hidden = open; }
     });
   });
+})();
+</script>
+<script>
+/* Scroll-driven motion: a small dependency-free engine. Every effect is
+   progressive: without this script (or with reduced motion) the page is the
+   plain, fully readable layout. */
+(function () {
+  "use strict";
+  var root = document.documentElement;
+  var mm = window.matchMedia;
+  if (!mm || mm("(prefers-reduced-motion: reduce)").matches) { return; }
+  if (!("IntersectionObserver" in window) || !window.requestAnimationFrame) { return; }
+
+  function $(s, c) { return (c || document).querySelector(s); }
+  function $$(s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); }
+  function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
+  function ease(t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+  function absTop(el) { return el.getBoundingClientRect().top + window.pageYOffset; }
+  /* Document offset that ignores transforms (reveals move things temporarily). */
+  function docBox(el) {
+    var x = 0, y = 0, w = el.offsetWidth, h = el.offsetHeight;
+    while (el) { x += el.offsetLeft; y += el.offsetTop; el = el.offsetParent; }
+    return { x: x, y: y, w: w, h: h };
+  }
+
+  var vw = 0, vh = 0, headH = 64, sy = 0, lastSweep = 0;
+  var layouts = [], scrubs = [];
+  var ticking = false;
+
+  /* A scrub maps the scroll position to 0..1 and renders it, eased toward
+     the target each frame so motion stays smooth whatever the input. */
+  function scrub(o) { o.cur = null; o.last = null; scrubs.push(o); return o; }
+  function frame() {
+    ticking = false;
+    sy = window.pageYOffset;
+    if (Math.abs(sy - lastSweep) > vh * .8) { lastSweep = sy; sweepPassed(); }
+    var busy = false;
+    for (var i = 0; i < scrubs.length; i++) {
+      var s = scrubs[i];
+      var t = s.target();
+      if (s.cur === null || !s.smooth) { s.cur = t; }
+      else {
+        s.cur += (t - s.cur) * s.smooth;
+        if (Math.abs(t - s.cur) < .0004) { s.cur = t; } else { busy = true; }
+      }
+      if (s.cur !== s.last) { s.last = s.cur; s.render(s.cur); }
+    }
+    if (busy) { kick(); }
+  }
+  function kick() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
+
+  function measure() {
+    vw = window.innerWidth; vh = window.innerHeight;
+    var head = $(".site-head"); headH = head ? head.offsetHeight : 64;
+    layouts.forEach(function (f) { f(); });
+    scrubs.forEach(function (s) { if (s.measure) { s.measure(); } s.last = null; });
+    sy = window.pageYOffset;
+    kick();
+  }
+  var mPending = false;
+  function remeasure() {
+    if (mPending) { return; }
+    mPending = true;
+    requestAnimationFrame(function () { mPending = false; measure(); });
+  }
+
+  /* Run fn once when el scrolls into view. */
+  var onceFns = new Map();
+  var onceIO = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting || e.boundingClientRect.bottom <= 0) { fire(e.target); }
+    });
+  }, { rootMargin: "0px 0px -10% 0px", threshold: .12 });
+  function fire(w) {
+    var list = onceFns.get(w);
+    if (!list) { return; }
+    onceIO.unobserve(w); onceFns.delete(w);
+    list.forEach(function (f) { f(); });
+  }
+  /* A jump link can carry us past elements without crossing a threshold. */
+  function sweepPassed() {
+    onceFns.forEach(function (list, w) { if (w.getBoundingClientRect().bottom <= 0) { fire(w); } });
+  }
+  /* watch: the element to observe (a fully clipped heading never intersects). */
+  function once(el, fn, watch) {
+    var w = watch || el, list = onceFns.get(w);
+    if (!list) { list = []; onceFns.set(w, list); onceIO.observe(w); }
+    list.push(function () { fn(el); });
+  }
+
+  try {
+    /* ---------- Reveals ---------- */
+    function reveal(el) {
+      el.classList.add("in");
+      if (el.getAttribute("data-rv") === "title") {
+        var done = function () { el.classList.add("rv-done"); };
+        el.addEventListener("transitionend", function te(e) {
+          if (e.propertyName === "clip-path") { el.removeEventListener("transitionend", te); done(); }
+        });
+        setTimeout(done, 2000);
+      }
+    }
+    function rv(sel, type, step) {
+      var groups = new Map();
+      $$(sel).forEach(function (el) {
+        if (el.closest(".hero") || el.hasAttribute("data-rv")) { return; }
+        el.setAttribute("data-rv", type);
+        if (step) {
+          var p = el.parentNode, n = groups.get(p) || 0;
+          groups.set(p, n + 1);
+          el.style.setProperty("--d", (n * step) + "s");
+        }
+        once(el, reveal, type === "title" ? el.parentNode : null);
+      });
+    }
+    rv(".sec-title, .owner h2 span, .follow h2", "title", .08);
+    rv(".season-year", "big");
+    rv(".follow .crest-lg", "crest");
+    rv(".label, .about .tag, .about-copy p, .plaque, .league-quote, .season-range, .sched-intro, .season-note, .roster-intro, .owner-kick, .owner-role, .owner-copy p, .lead-band .big, .follow .alt-line, .follow-p, .follow-ctas, .partner, .foot-grid > *, .foot-base", "up", .1);
+    rv(".creed li", "up", .12);
+    rv(".ledger > div", "up", .08);
+    rv(".tkt", "up", .05);
+    $$(".plaque-media, .lead-fig, .pp-frame, .gal-grid figure").forEach(function (el, i) {
+      el.setAttribute("data-curtain", "");
+      once(el, function () { el.classList.add("in"); });
+    });
+
+    /* ---------- Scroll progress line ---------- */
+    var prog = $(".scroll-prog"), docH = 1;
+    if (prog) {
+      scrub({
+        smooth: .25,
+        measure: function () { docH = Math.max(1, root.scrollHeight - vh); },
+        target: function () { return clamp(sy / docH, 0, 1); },
+        render: function (p) { prog.style.transform = "scaleX(" + p + ")"; }
+      });
+    }
+
+    /* ---------- Hero: crest turns, words slide, photo settles ---------- */
+    var hero = $(".hero"), logo = $(".hero-logo"), h1 = $(".hero h1"), rows = $$(".mega-row");
+    var plate = $(".plate"), plateImg = $(".plate-media img"), heroH = 1;
+    if (hero && logo) {
+      scrub({
+        smooth: .14,
+        measure: function () { heroH = Math.max(1, hero.offsetHeight); },
+        target: function () { return clamp(sy / heroH, 0, 1); },
+        render: function (p) {
+          if (rows[0]) { rows[0].style.translate = (-p * .35 * vw) + "px 0"; }
+          if (rows[1]) { rows[1].style.translate = (p * .35 * vw) + "px 0"; }
+          /* Individual transform properties compose with the CSS load animation. */
+          logo.style.rotate = "y " + (p * 360) + "deg";
+          logo.style.scale = String(1 - p * .28);
+          logo.style.translate = "0 " + (p * 70) + "px";
+          if (h1) { h1.style.translate = "0 " + (-p * 50) + "px"; }
+          if (plate) { plate.style.scale = String(.92 + .08 * ease(clamp(p * 2.2, 0, 1))); }
+          if (plateImg) { plateImg.style.scale = String(1.18 - .18 * clamp(p * 1.8, 0, 1)); }
+        }
+      });
+    }
+
+    /* ---------- The pickleball flies from the crest to the trophy cabinet ---------- */
+    var ball = $(".ball"), badge = $(".honours .badge"), mainEl = $("main");
+    if (ball && badge && logo && mainEl) {
+      var B = { p0: null, c: null, p1: null, end: 1, size: 48 };
+      scrub({
+        smooth: .12,
+        measure: function () {
+          var m = docBox(mainEl), lg = docBox(logo), bd = docBox(badge);
+          B.size = ball.offsetWidth || 48;
+          B.p0 = { x: lg.x - m.x + lg.w + 26, y: lg.y - m.y + lg.h * .28 };
+          B.p1 = { x: bd.x - m.x + bd.w / 2 - B.size / 2, y: bd.y - m.y - B.size - 6 };
+          B.c = { x: mainEl.offsetWidth * .9 - B.size, y: B.p0.y + (B.p1.y - B.p0.y) * .3 };
+          B.end = Math.max(1, bd.y - vh * .62);
+        },
+        target: function () { return clamp(sy / B.end, 0, 1); },
+        render: function (p) {
+          if (!B.p0) { return; }
+          var e = ease(p), u = 1 - e;
+          var x = u * u * B.p0.x + 2 * u * e * B.c.x + e * e * B.p1.x;
+          var y = u * u * B.p0.y + 2 * u * e * B.c.y + e * e * B.p1.y;
+          var s = 1 + Math.sin(p * Math.PI) * .7;
+          ball.style.transform = "translate3d(" + x + "px," + y + "px,0) rotate(" + (p * 1080) + "deg) scale(" + s + ")";
+          var landed = p >= .999;
+          if (landed !== ball.classList.contains("landed")) { ball.classList.toggle("landed", landed); }
+        }
+      });
+    }
+
+    /* ---------- Honours: scoreboard count and photo zoom ---------- */
+    var bn = $(".big-num"), sbl = bn && $(".sb-l", bn);
+    if (bn && sbl) {
+      sbl.textContent = "0";
+      once(bn, function () {
+        var i = 0;
+        var iv = setInterval(function () {
+          i += 1;
+          sbl.textContent = String(i);
+          bn.classList.remove("tick"); void bn.offsetWidth; bn.classList.add("tick");
+          if (i >= 6) { clearInterval(iv); }
+        }, 150);
+      });
+    }
+    var honMedia = $(".plaque-media"), honImg = honMedia && $("img", honMedia), honTop = 0, honH = 1;
+    if (honImg) {
+      scrub({
+        smooth: .14,
+        measure: function () { var b = docBox(honMedia); honTop = b.y; honH = b.h; },
+        target: function () { return clamp((sy + vh - honTop) / (vh + honH), 0, 1); },
+        render: function (p) { honImg.style.transform = "scale(" + (1.28 - .28 * clamp(p * 1.6, 0, 1)) + ")"; }
+      });
+    }
+
+    /* ---------- Schedule: the route draws itself ---------- */
+    var rw = $(".route-wrap"), rFill = $(".route-fill"), rBall = $(".route-ball"), tks = $$(".tkt");
+    if (rw && rFill && rBall) {
+      var R = { top: 0, h: 1, marks: [] };
+      scrub({
+        smooth: .14,
+        measure: function () {
+          R.top = absTop(rw); R.h = Math.max(1, rw.offsetHeight);
+          R.marks = tks.map(function (t) { return t.offsetTop + t.offsetHeight / 2; });
+        },
+        target: function () { return clamp((sy + vh * .62 - R.top) / R.h, 0, 1); },
+        render: function (p) {
+          var y = p * R.h;
+          rFill.style.transform = "scaleY(" + p + ")";
+          rBall.style.translate = "0 " + y + "px";
+          rBall.style.rotate = (p * 720) + "deg";
+          tks.forEach(function (t, i) { t.classList.toggle("passed", y >= R.marks[i] - 4); });
+        }
+      });
+    }
+
+    /* ---------- Roster: the lineup, pinned, one Lion at a time ---------- */
+    var roster = $(".roster"), stage = $(".lineup-stage"), track = $(".roster-grid"), cards = $$(".pp");
+    var lbar = $(".lineup-bar span"), lineMQ = mm("(min-width: 1060px) and (min-height: 620px)");
+    var L = { on: false, top: 0, step: 1, dist: 0, run: 1 };
+    if (roster && stage && track && cards.length > 1) {
+      var cardImgs = cards.map(function (c) { return $(".pp-frame img", c); });
+      layouts.push(function () {
+        var on = lineMQ.matches;
+        root.classList.toggle("lineup-on", on);
+        L.on = on;
+        if (!on) {
+          roster.style.height = ""; track.style.translate = "";
+          cards.forEach(function (c, i) { c.style.opacity = ""; c.style.scale = ""; if (cardImgs[i]) { cardImgs[i].style.translate = ""; } });
+          return;
+        }
+        var wrap = $(".wrap", stage), cs = getComputedStyle(wrap);
+        var inner = wrap.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+        track.style.setProperty("--card-w", inner + "px");
+        var gap = parseFloat(getComputedStyle(track).columnGap) || 80;
+        L.step = inner + gap;
+        L.dist = L.step * (cards.length - 1);
+        L.run = Math.round(L.dist * 1.1);
+        var h = Math.round(stage.offsetHeight + L.run) + "px";
+        if (roster.style.height !== h) { roster.style.height = h; }
+        L.top = absTop(roster);
+      });
+      scrub({
+        smooth: .13,
+        target: function () { return L.on ? clamp((sy + headH - L.top) / L.run, 0, 1) : 0; },
+        render: function (p) {
+          if (!L.on) { return; }
+          var n = cards.length - 1, raw = p * n, f = Math.floor(raw), fr = raw - f;
+          /* Hold on each card, then glide to the next. */
+          var pos = Math.min(n, f + ease(clamp((fr - .14) / .72, 0, 1)));
+          track.style.translate = (-pos * L.step) + "px 0";
+          cards.forEach(function (c, i) {
+            var d = Math.min(Math.abs(pos - i), 1);
+            c.style.opacity = String(1 - .9 * d);
+            c.style.scale = String(1 - .07 * d);
+            if (cardImgs[i]) { cardImgs[i].style.translate = ((i - pos) * -7) + "% 0"; }
+          });
+          if (lbar) { lbar.style.transform = "scaleX(" + (pos / n) + ")"; }
+        }
+      });
+      /* Keyboard users: bring the focused Lion on stage. */
+      track.addEventListener("focusin", function (e) {
+        if (!L.on) { return; }
+        stage.scrollLeft = 0;
+        var i = cards.indexOf(e.target.closest(".pp"));
+        if (i < 0) { return; }
+        window.scrollTo({ top: L.top - headH + (i / (cards.length - 1)) * L.run, behavior: "instant" });
+      });
+    }
+
+    /* ---------- Owner: the photo assembles from particles ---------- */
+    var fig = $(".owner-fig"), oimg = fig && $("img", fig);
+    if (fig && oimg) {
+      oimg.loading = "eager";
+      var cv = document.createElement("canvas");
+      cv.className = "owner-canvas"; cv.setAttribute("aria-hidden", "true");
+      fig.appendChild(cv);
+      var ctx = cv.getContext("2d"), off = document.createElement("canvas"), octx = off.getContext("2d");
+      var O = { ready: false, blocks: [], bs: 10, top: 0 };
+      var build = function () {
+        O.ready = false;
+        if (!ctx || !octx || !oimg.complete || !oimg.naturalWidth) { return; }
+        var dpr = Math.min(window.devicePixelRatio || 1, 2);
+        var cw = Math.round(oimg.clientWidth * dpr), ch = Math.round(oimg.clientHeight * dpr);
+        if (!cw || !ch) { return; }
+        cv.width = off.width = cw; cv.height = off.height = ch;
+        var iw = oimg.naturalWidth, ih = oimg.naturalHeight, k = Math.max(cw / iw, ch / ih);
+        var dw = iw * k, dh = ih * k;
+        octx.drawImage(oimg, (cw - dw) * .64, (ch - dh) * .40, dw, dh);
+        var bs = Math.max(8, Math.round(cw / 96));
+        O.bs = bs; O.blocks = [];
+        for (var y = 0; y < ch; y += bs) {
+          for (var x = 0; x < cw; x += bs) {
+            O.blocks.push({ x: x, y: y, ox: (Math.random() - .5) * cw * .6, oy: (Math.random() - .5) * ch * 1.1, d: Math.random() * .42 + (x / cw) * .12 });
+          }
+        }
+        O.ready = true;
+      };
+      oimg.addEventListener("load", function () { build(); scrubs.forEach(function (s) { s.last = null; }); kick(); });
+      scrub({
+        smooth: .16,
+        measure: function () { O.top = docBox(fig).y; build(); },
+        target: function () { return clamp((sy + vh * .92 - O.top) / (vh * .62), 0, 1); },
+        render: function (p) {
+          if (!O.ready) { oimg.style.opacity = ""; cv.style.opacity = "0"; return; }
+          if (p >= 1) { oimg.style.opacity = "1"; cv.style.opacity = "0"; return; }
+          oimg.style.opacity = "0"; cv.style.opacity = "1";
+          ctx.clearRect(0, 0, cv.width, cv.height);
+          var bs = O.bs, pp = p * 1.06;
+          for (var i = 0; i < O.blocks.length; i++) {
+            var b = O.blocks[i], t = clamp((pp - b.d) / .5, 0, 1);
+            if (t <= 0) { continue; }
+            var e = ease(t), r = 1 - e;
+            ctx.globalAlpha = e;
+            ctx.drawImage(off, b.x, b.y, bs, bs, b.x + b.ox * r, b.y + b.oy * r, bs, bs);
+          }
+          ctx.globalAlpha = 1;
+        }
+      });
+    }
+
+    /* ---------- Leadership photo parallax ---------- */
+    var lfig = $(".lead-fig"), lTop = 0, lH = 1;
+    if (lfig) {
+      scrub({
+        smooth: .14,
+        measure: function () { var b = docBox(lfig); lTop = b.y; lH = b.h; },
+        target: function () { return clamp((sy + vh - lTop) / (vh + lH), 0, 1); },
+        render: function (p) { lfig.style.translate = "0 " + ((.5 - p) * 70) + "px"; }
+      });
+    }
+
+    /* ---------- Gallery: horizontal film strip ---------- */
+    var gal = $(".gallery"), sStage = $(".strip-stage"), sTrack = $(".gal-grid"), figs = $$(".gal-grid figure");
+    var stripMQ = mm("(min-width: 900px) and (min-height: 560px)");
+    var S = { on: false, top: 0, dist: 0, run: 1, left: 0, boxes: [] };
+    if (gal && sStage && sTrack && figs.length) {
+      var figImgs = figs.map(function (f) { return $("img", f); });
+      layouts.push(function () {
+        var on = stripMQ.matches;
+        root.classList.toggle("strip-on", on);
+        S.on = on;
+        sTrack.style.translate = "";
+        if (!on) {
+          gal.style.height = "";
+          figImgs.forEach(function (im) { if (im) { im.style.translate = ""; } });
+          return;
+        }
+        figImgs.forEach(function (im) { if (im) { im.loading = "eager"; } });
+        var wrap = $(".wrap", sStage), gut = parseFloat(getComputedStyle(wrap).paddingLeft) || 24;
+        S.left = sTrack.getBoundingClientRect().left;
+        S.dist = Math.max(0, S.left + sTrack.scrollWidth - (vw - gut));
+        S.run = Math.max(1, Math.round(S.dist));
+        S.boxes = figs.map(function (f) { return { x: f.offsetLeft, w: f.offsetWidth }; });
+        var h = Math.round(sStage.offsetHeight + S.run) + "px";
+        if (gal.style.height !== h) { gal.style.height = h; }
+        S.top = absTop(gal);
+      });
+      scrub({
+        smooth: .13,
+        target: function () { return S.on ? clamp((sy + headH - S.top) / S.run, 0, 1) : 0; },
+        render: function (p) {
+          if (!S.on) { return; }
+          var x = -p * S.dist;
+          sTrack.style.translate = x + "px 0";
+          S.boxes.forEach(function (b, i) {
+            var c = S.left + x + b.x + b.w / 2 - vw / 2;
+            if (figImgs[i]) { figImgs[i].style.translate = (-(c / vw) * 9) + "% 0"; }
+          });
+        }
+      });
+      sTrack.addEventListener("focusin", function () { sStage.scrollLeft = 0; });
+    }
+
+    /* ---------- Fine pointer: cursor and hover tilt ---------- */
+    if (mm("(hover: hover) and (pointer: fine)").matches) {
+      var cur = document.createElement("div");
+      cur.className = "cursor"; cur.setAttribute("aria-hidden", "true");
+      cur.appendChild(document.createElement("i"));
+      document.body.appendChild(cur);
+      var mx = -100, my = -100, cx = -100, cy = -100, running = false;
+      var loop = function () {
+        cx += (mx - cx) * .28; cy += (my - cy) * .28;
+        cur.style.transform = "translate3d(" + cx + "px," + cy + "px,0)";
+        if (Math.abs(mx - cx) + Math.abs(my - cy) > .2) { requestAnimationFrame(loop); } else { running = false; }
+      };
+      document.addEventListener("pointermove", function (e) {
+        if (e.pointerType !== "mouse") { return; }
+        mx = e.clientX; my = e.clientY;
+        cur.classList.add("on");
+        var hot = e.target.closest && e.target.closest("a, button, img, canvas, .pp-frame");
+        cur.classList.toggle("big", !!hot);
+        if (!running) { running = true; requestAnimationFrame(loop); }
+      }, { passive: true });
+      document.addEventListener("mouseout", function (e) { if (!e.relatedTarget) { cur.classList.remove("on"); } });
+
+      $$(".pp-frame, .lead-fig, .plaque").forEach(function (el) {
+        el.addEventListener("pointermove", function (e) {
+          var r = el.getBoundingClientRect();
+          var x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+          el.style.transition = "transform .12s ease-out, box-shadow .3s";
+          el.style.transform = "perspective(900px) rotateX(" + (-y * 7) + "deg) rotateY(" + (x * 9) + "deg)";
+          el.classList.add("tilt");
+        });
+        el.addEventListener("pointerleave", function () {
+          el.style.transition = "transform .6s cubic-bezier(.2,.7,.1,1), box-shadow .4s";
+          el.style.transform = "";
+          el.classList.remove("tilt");
+        });
+      });
+    }
+
+    /* ---------- Wire up ---------- */
+    root.classList.add("motion");
+    measure();
+    window.addEventListener("scroll", kick, { passive: true });
+    window.addEventListener("resize", remeasure);
+    window.addEventListener("load", function () {
+      measure();
+      /* Pinned sections add height, so re-land on a direct section link. */
+      if (location.hash.length > 1) {
+        var t = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+        if (t) { t.scrollIntoView({ behavior: "instant" }); }
+      }
+    });
+    if (document.fonts && document.fonts.ready) { document.fonts.ready.then(remeasure); }
+    if ("ResizeObserver" in window) { new ResizeObserver(remeasure).observe(document.body); }
+    [lineMQ, stripMQ].forEach(function (q) {
+      if (q.addEventListener) { q.addEventListener("change", remeasure); } else if (q.addListener) { q.addListener(remeasure); }
+    });
+  } catch (err) {
+    /* If anything fails, fall back to the static page. */
+    root.classList.remove("motion", "lineup-on", "strip-on");
+    if (window.console) { console.warn("Motion disabled:", err); }
+  }
 })();
 </script>
