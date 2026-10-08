@@ -11,7 +11,8 @@ Open `index.html` in a browser, or run `python -m http.server 8000` here for a l
 
 Scroll-driven motion is built in with a small dependency-free script at the end of `index.html` (no external libraries):
 
-- Hero: giant outlined words slide behind the crest as you scroll and the team photo settles.
+- Reel (top of the page): a pinned stage plays the Lions paddle film one frame per scroll position. The paddle comes apart into its layers (spec callouts follow each layer), locks back together with a red flash and shockwave, then the full kit appears with product tags and the "Wear the Pride." finale. Frames are in `img/reel/` (216 WebP frames, 1280×720, Gemini watermark removed); `img/reel-poster.webp` is the static fallback. To swap in a new film: `ffmpeg -i film.mp4 -frames:v 216 -c:v libwebp -quality 74 img/reel/%03d.webp`, then update `N` and the keyframes in the reel script if the timing changes.
+- Hero (now the red section under the reel): giant outlined words slide behind the crest as you scroll and the team photo settles.
 - Honours: the 6–0 record counts up like a scoreboard; the trophy photo zooms out.
 - Schedule: a red route line draws down the season; each event stamps in.
 - Roster ("The lineup."): on wide screens the section pins and shows one Lion at a time; signature tips open over the photo.

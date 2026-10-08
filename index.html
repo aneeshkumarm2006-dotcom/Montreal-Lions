@@ -119,8 +119,8 @@ button{font:inherit}
 .hero-rule{display:flex;align-items:center;gap:14px;margin-top:26px;font:700 .75rem/1.2 var(--sans);letter-spacing:.26em;text-transform:uppercase}
 .hero-rule::before,.hero-rule::after{content:"";width:clamp(28px,6vw,64px);height:1px;background:var(--gold)}
 .hero-rule svg{width:18px;height:11px;color:var(--gold);flex:0 0 auto}
-.hero h1{margin-top:20px;font-size:clamp(1.9rem,5.4vw,4.3rem);line-height:1.06;letter-spacing:.015em;text-wrap:balance;text-shadow:0 2px 0 rgba(86,11,19,.25)}
-.hero h1 span{display:block}
+.hero .hero-h{margin-top:20px;font-size:clamp(1.9rem,5.4vw,4.3rem);line-height:1.06;letter-spacing:.015em;text-wrap:balance;text-shadow:0 2px 0 rgba(86,11,19,.25)}
+.hero .hero-h span{display:block}
 .alt-line{display:inline-flex;align-items:baseline;gap:10px;margin-top:18px;font-style:italic;font-weight:500;font-size:clamp(1rem,1.6vw,1.2rem);line-height:1.45;color:var(--on-red-soft);text-wrap:balance}
 .chip{font:700 .625rem/1 var(--sans);font-style:normal;letter-spacing:.18em;padding:4px 6px;border:1px solid rgba(255,255,255,.6);transform:translateY(-2px)}
 .hero-lead{margin-top:20px;max-width:46ch;color:#FFFFFF;font-size:1.0625rem}
@@ -324,7 +324,7 @@ button{font:inherit}
 @media (prefers-reduced-motion:no-preference){
   html{scroll-behavior:smooth}
   .hero-logo{animation:crestSettle 1.2s cubic-bezier(.2,.7,.1,1) both}
-  .hero h1{animation:headSettle 1.2s .12s cubic-bezier(.2,.7,.1,1) both}
+  .hero .hero-h{animation:headSettle 1.2s .12s cubic-bezier(.2,.7,.1,1) both}
   .hero-rule::before,.hero-rule::after{animation:ruleDraw 1.1s .2s cubic-bezier(.2,.7,.1,1) both}
   .hero-rule::before{transform-origin:right}
   .hero-rule::after{transform-origin:left}
@@ -464,6 +464,105 @@ main{position:relative}
 
 @media (prefers-reduced-motion:reduce){.route{display:none!important}.big-num.tick{animation:none}}
 
+/* ---------- Reel: scroll-scrubbed paddle film at the top of the page ----------
+   Static by default (poster image + headline). The reel script adds .reel-on,
+   which pins the stage and draws one film frame per scroll position. */
+.reel{--reel-bg:#070304;position:relative;background:var(--reel-bg);color:#FFFFFF}
+.reel-sticky{position:relative;min-height:min(88vh,860px);overflow:hidden;overflow:clip;display:flex;align-items:flex-end;isolation:isolate}
+.reel-sticky::after{content:"";position:absolute;inset:0;z-index:8;pointer-events:none;opacity:.1;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.reel-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:62% 50%}
+.reel-canvas{display:none}
+.reel-scrim{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(7,3,4,.92) 0%,rgba(7,3,4,.55) 34%,rgba(7,3,4,0) 58%),linear-gradient(0deg,rgba(7,3,4,.85) 0%,rgba(7,3,4,0) 40%)}
+.reel-text{position:relative;z-index:5;width:100%;max-width:1360px;margin:0 auto;padding:clamp(40px,8vw,96px) var(--gutter) clamp(40px,6vw,72px)}
+.reel-kick{display:flex;align-items:center;gap:12px;font:600 .75rem/1.3 var(--sans);letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.78)}
+.reel-kick::before{content:"";flex:0 0 28px;height:1px;background:var(--gold)}
+.reel h1{margin-top:16px;font:400 clamp(3.6rem,8.4vw,8rem)/.86 var(--display);text-transform:uppercase;letter-spacing:.005em}
+.reel h1 span{display:block}
+.reel h1 span+span{color:var(--red-hi)}
+.reel-lead{margin-top:18px;max-width:34ch;color:rgba(255,255,255,.86)}
+.reel-finale{margin-top:28px}
+.reel-finale h2{font:400 clamp(2.8rem,5.6vw,5.4rem)/.88 var(--display);text-transform:uppercase;letter-spacing:.005em}
+.reel-finale h2 span{color:var(--red-hi)}
+.reel-finale p{margin-top:14px;max-width:34ch;color:rgba(255,255,255,.86)}
+.reel-ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+.reel:not(.reel-on) .reel-finale .reel-kick,.reel:not(.reel-on) .reel-finale h2,.reel:not(.reel-on) .reel-finale p{display:none}
+.reel-beat,.reel-co,.reel-tag,.reel-meter,.reel-hint,.reel-flash,.reel-wave,.reel-mega{display:none}
+@media (max-width:520px){.reel-ctas .btn{flex:1 1 100%}}
+
+.reel.reel-on{height:640vh}
+.reel-on .reel-sticky{position:sticky;top:var(--head-h);height:calc(100vh - var(--head-h));height:calc(100svh - var(--head-h));min-height:0;display:block}
+.reel-on .reel-poster{display:none}
+.reel-on .reel-canvas{display:block;position:absolute;inset:0;width:100%;height:100%}
+.reel-on .reel-text{position:absolute;inset:0;max-width:none;padding:0;pointer-events:none}
+.reel-on .reel-intro,.reel-on .reel-finale{position:absolute;left:clamp(20px,5vw,80px);top:50%;max-width:min(38vw,520px);margin:0;transform:translateY(-50%)}
+.reel-on .reel-finale{opacity:0;visibility:hidden;transform:translateY(calc(-50% + 18px));transition:opacity .45s,transform .45s var(--ease-out),visibility 0s .45s}
+.reel-on .reel-finale.on{opacity:1;visibility:visible;transform:translateY(-50%);pointer-events:auto;transition:opacity .45s,transform .45s var(--ease-out),visibility 0s}
+.reel-on .reel-ctas{pointer-events:auto}
+
+.reel-on .reel-hint{display:flex;position:absolute;z-index:5;left:50%;bottom:22px;transform:translateX(-50%);flex-direction:column;align-items:center;gap:10px;font:600 .6875rem/1 var(--sans);letter-spacing:.32em;text-transform:uppercase;color:rgba(255,255,255,.8)}
+.reel-hint i{display:block;width:1px;height:38px;background:linear-gradient(var(--red-hi),transparent);transform-origin:top;animation:reelDrip 1.8s var(--ease-io) infinite}
+@keyframes reelDrip{0%{transform:scaleY(0)}55%{transform:scaleY(1);opacity:1}100%{transform:scaleY(1);opacity:0}}
+
+/* Giant outlined word behind the copy, one per chapter */
+.reel-on .reel-mega{display:block;position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden}
+.reel-mega span{position:absolute;left:50%;top:50%;font:400 clamp(9rem,27vw,26rem)/.8 var(--display);text-transform:uppercase;white-space:nowrap;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.2);mix-blend-mode:screen;opacity:0;translate:-50% -50%;will-change:transform,opacity}
+
+/* Chapter copy, bottom left */
+.reel-on .reel-beat{display:block;position:absolute;z-index:5;left:clamp(20px,5vw,80px);bottom:clamp(36px,9vh,96px);max-width:380px;opacity:0;transform:translateY(16px);transition:opacity .35s,transform .45s var(--ease-out)}
+.reel-beat.on{opacity:1;transform:none}
+.reel-beat .n{display:flex;align-items:center;gap:10px;font:600 .75rem/1 var(--sans);letter-spacing:.28em;color:var(--red-hi)}
+.reel-beat .n::after{content:"";width:44px;height:1px;background:currentColor;opacity:.7}
+.reel-beat h3{margin-top:12px;font:400 clamp(2.4rem,3.8vw,3.6rem)/.92 var(--display);text-transform:uppercase;letter-spacing:.01em}
+.reel-beat p{margin-top:10px;color:rgba(255,255,255,.84);font-size:1rem}
+
+/* Spec callouts that follow the floating layers */
+.reel-on .reel-co{display:block;position:absolute;z-index:4;left:0;top:0;width:0;height:0;opacity:0;transition:opacity .3s}
+.reel-co.on{opacity:1}
+.reel-co i{position:absolute;left:-6px;top:-6px;width:12px;height:12px;border-radius:50%;background:#FFFFFF;box-shadow:0 0 0 4px rgba(229,64,76,.45),0 0 18px 4px rgba(229,64,76,.7)}
+.reel-co i::after{content:"";position:absolute;inset:-9px;border:1px solid rgba(255,255,255,.55);border-radius:50%;animation:reelPing 1.6s var(--ease-out) infinite}
+@keyframes reelPing{from{transform:scale(.5);opacity:1}to{transform:scale(1.6);opacity:0}}
+.reel-co::before{content:"";position:absolute;left:0;bottom:8px;width:1px;height:64px;background:linear-gradient(transparent,rgba(255,255,255,.85));transform-origin:bottom;transform:scaleY(0);transition:transform .4s var(--ease-out)}
+.reel-co.on::before{transform:scaleY(1)}
+.reel-co b{position:absolute;bottom:72px;left:0;display:block;white-space:nowrap;padding:8px 12px;border:1px solid rgba(255,255,255,.4);background:rgba(7,3,4,.55);backdrop-filter:blur(6px);font:700 .6875rem/1 var(--sans);letter-spacing:.22em;text-transform:uppercase;clip-path:inset(0 100% 0 0);transition:clip-path .5s .15s var(--ease-out)}
+.reel-co.on b{clip-path:inset(0 0 0 0)}
+.reel-co b small{display:block;margin-bottom:5px;font-size:.625rem;letter-spacing:.2em;color:var(--red-hi)}
+.reel-co.l b{left:auto;right:0}
+.reel-co.d::before{bottom:auto;top:8px;background:linear-gradient(rgba(255,255,255,.85),transparent);transform-origin:top}
+.reel-co.d b{bottom:auto;top:72px}
+
+/* Product tags on the final kit */
+.reel-on .reel-tag{display:block;position:absolute;z-index:4;left:0;top:0;padding:8px 14px 8px 12px;border-radius:999px;background:#FFFFFF;color:var(--ink);font:700 .75rem/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;box-shadow:0 10px 26px rgba(0,0,0,.45);opacity:0;translate:-50% -50%;scale:.85;transition:opacity .3s,scale .35s var(--ease-out)}
+.reel-tag::before{content:"";display:inline-block;width:8px;height:8px;margin-right:8px;border-radius:50%;background:var(--red);vertical-align:1px}
+.reel-tag.on{opacity:1;scale:1}
+
+/* Impact flash + shockwave at the moment the paddle locks */
+.reel-on .reel-flash{display:block;position:absolute;inset:0;z-index:3;pointer-events:none;opacity:0;background:radial-gradient(circle at 50% 46%,rgba(255,236,228,.95) 0%,rgba(229,64,76,.75) 26%,rgba(142,22,34,.35) 52%,rgba(7,3,4,0) 78%);mix-blend-mode:screen}
+.reel-on .reel-wave{display:block;position:absolute;z-index:3;left:50%;top:46%;width:46vmin;height:46vmin;margin:-23vmin 0 0 -23vmin;border-radius:50%;border:2px solid rgba(255,140,140,.9);box-shadow:0 0 40px 6px rgba(229,64,76,.7),inset 0 0 40px 6px rgba(229,64,76,.5);pointer-events:none;opacity:0;scale:.2}
+
+/* Chapter meter */
+.reel-on .reel-meter{display:flex;position:absolute;z-index:5;right:clamp(16px,3vw,40px);top:50%;transform:translateY(-50%);flex-direction:column;gap:10px}
+.reel-meter i{display:block;width:3px;height:30px;background:rgba(255,255,255,.22);transition:background-color .3s}
+.reel-meter i.on{background:var(--red-hi)}
+
+@media (max-width:860px){
+  .reel.reel-on{height:520vh}
+  .reel-on .reel-intro,.reel-on .reel-finale{left:var(--gutter);right:var(--gutter);top:clamp(20px,5vh,48px);max-width:none;text-align:center;transform:none}
+  .reel-on .reel-finale{transform:translateY(18px)}
+  .reel-on .reel-finale.on{transform:none}
+  .reel-on .reel-intro .reel-kick,.reel-on .reel-finale .reel-kick{justify-content:center}
+  .reel-on .reel-ctas{justify-content:center}
+  .reel-on h1{font-size:clamp(3rem,15vw,4.6rem)}
+  .reel-on .reel-lead{margin-inline:auto}
+  .reel-on .reel-finale h2{font-size:clamp(2.4rem,11vw,3.4rem)}
+  .reel-on .reel-finale p{margin-inline:auto}
+  .reel-on .reel-beat{left:var(--gutter);right:var(--gutter);bottom:calc(24px + env(safe-area-inset-bottom,0px));max-width:none;text-align:center}
+  .reel-beat .n{justify-content:center}
+  .reel-beat .n::before{content:"";width:44px;height:1px;background:currentColor;opacity:.7}
+  .reel-on .reel-co,.reel-on .reel-tag,.reel-on .reel-meter{display:none}
+  .reel-on .reel-hint{bottom:calc(16px + env(safe-area-inset-bottom,0px))}
+}
+@media (prefers-reduced-motion:reduce){.reel-hint i,.reel-co i::after{animation:none}}
+
 </style>
 
 
@@ -531,7 +630,53 @@ main{position:relative}
 
 <main id="main">
 
-  <section class="hero on-dark" id="top" aria-labelledby="hero-h">
+  <section class="reel on-dark" id="top" aria-labelledby="reel-h">
+    <div class="reel-sticky">
+      <img class="reel-poster" src="img/reel-poster.webp" width="1280" height="720" fetchpriority="high" alt="A Montreal Lions paddle, red pinstriped jersey, red ball and white court shoes floating in a dark studio" data-i18n-alt="reel.alt">
+      <canvas class="reel-canvas" aria-hidden="true"></canvas>
+      <div class="reel-scrim"></div>
+      <div class="reel-mega" aria-hidden="true">
+        <span data-i18n="reel.w1">Carbon</span><span data-i18n="reel.w2">Core</span><span data-i18n="reel.w3">Roar</span><span data-i18n="reel.w4">Pride</span>
+      </div>
+      <div class="reel-flash" aria-hidden="true"></div>
+      <div class="reel-wave" aria-hidden="true"></div>
+
+      <div class="reel-co" data-k="34:470:265,60:400:280,90:470:280,98:530:240" aria-hidden="true"><i></i><b><small>01</small><span data-i18n="reel.co1">Carbon face</span></b></div>
+      <div class="reel-co d" data-k="34:650:300,60:640:330,90:630:330,98:680:280" aria-hidden="true"><i></i><b><small>02</small><span data-i18n="reel.co2">Honeycomb core</span></b></div>
+      <div class="reel-co l" data-k="34:880:150,60:1010:170,90:940:200,98:760:170" aria-hidden="true"><i></i><b><small>03</small><span data-i18n="reel.co3">Edge guard</span></b></div>
+
+      <span class="reel-tag" data-x="330" data-y="210" data-at=".70" aria-hidden="true" data-i18n="reel.t1">Paddle</span>
+      <span class="reel-tag" data-x="790" data-y="150" data-at=".73" aria-hidden="true" data-i18n="reel.t2">Jersey</span>
+      <span class="reel-tag" data-x="640" data-y="610" data-at=".76" aria-hidden="true" data-i18n="reel.t3">Ball</span>
+      <span class="reel-tag" data-x="1010" data-y="300" data-at=".79" aria-hidden="true" data-i18n="reel.t4">Shoes</span>
+
+      <div class="reel-beat" data-from=".07" data-to=".245"><p class="n">01 / 03</p><h3 data-i18n="reel.b1h">Carbon face</h3><p data-i18n="reel.b1p">Textured carbon for spin and touch on every dink.</p></div>
+      <div class="reel-beat" data-from=".245" data-to=".40"><p class="n">02 / 03</p><h3 data-i18n="reel.b2h">Honeycomb core</h3><p data-i18n="reel.b2p">It takes the hit and gives the power back.</p></div>
+      <div class="reel-beat" data-from=".40" data-to=".53"><p class="n">03 / 03</p><h3 data-i18n="reel.b3h">Locked in</h3><p data-i18n="reel.b3p">Every layer together. One Pride.</p></div>
+
+      <div class="reel-meter" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      <p class="reel-hint" aria-hidden="true"><span data-i18n="reel.hint">Scroll</span><i></i></p>
+
+      <div class="reel-text">
+        <div class="reel-intro">
+          <p class="reel-kick" data-i18n="hero.kicker">Pro pickleball · Montréal</p>
+          <h1 id="reel-h"><span data-i18n="reel.h1a">Built</span> <span data-i18n="reel.h1b">to roar.</span></h1>
+          <p class="reel-lead" data-i18n="reel.lead">Scroll to take a Lions paddle apart, layer by layer.</p>
+        </div>
+        <div class="reel-finale">
+          <p class="reel-kick" data-i18n="hero.champs">2024 CNPL Champions</p>
+          <h2><span data-i18n="reel.f1">Wear</span> <span data-i18n="reel.f2">the Pride.</span></h2>
+          <p data-i18n="hero.line">Pride in every point. Power in every play.</p>
+          <div class="reel-ctas">
+            <a class="btn btn-solid" href="#schedule"><span data-i18n="hero.cta1">2026 schedule</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
+            <a class="btn btn-line" href="https://www.instagram.com/montreallions" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg><span data-i18n="hero.cta2">Follow @montreallions</span><span class="sr-only" data-i18n="ext">(opens in a new tab)</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero on-dark" id="pride" aria-labelledby="hero-h">
     <div class="hero-mega" aria-hidden="true">
       <p class="mega-row r1" data-i18n="hero.mega1">Pride · Power · Roar · Pride · Power · Roar ·</p>
       <p class="mega-row r2" data-i18n="hero.mega2">Montréal · Lions · CNPL · Montréal · Lions · CNPL ·</p>
@@ -542,7 +687,7 @@ main{position:relative}
       <p class="hero-kicker" data-i18n="hero.kicker">Pro pickleball · Montréal</p>
       <img class="hero-logo" src="img/logo-on-dark.svg" width="169" height="318" alt="Montreal Lions crest: a crowned lion in a shield above the MONTRÉAL LIONS wordmark" data-i18n-alt="hero.logoAlt">
       <p class="hero-rule"><svg viewBox="0 0 24 14" aria-hidden="true"><path d="M1 13 3 3l5 5 4-7 4 7 5-5 2 10z" fill="currentColor"/></svg><span data-i18n="hero.champs">2024 CNPL Champions</span><svg viewBox="0 0 24 14" aria-hidden="true"><path d="M1 13 3 3l5 5 4-7 4 7 5-5 2 10z" fill="currentColor"/></svg></p>
-      <h1 id="hero-h"><span data-i18n="hero.h1a">Pride in every point.</span> <span data-i18n="hero.h1b">Power in every play.</span></h1>
+      <h2 class="hero-h" id="hero-h"><span data-i18n="hero.h1a">Pride in every point.</span> <span data-i18n="hero.h1b">Power in every play.</span></h2>
       <p class="hero-lead" data-i18n="hero.lead">Canada’s premier force on the pro pickleball scene. Welcome to the Pride.</p>
       <div class="hero-ctas">
         <a class="btn btn-solid" href="#schedule"><span data-i18n="hero.cta1">2026 schedule</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
@@ -864,6 +1009,17 @@ main{position:relative}
       "hero.cta2": "Follow @montreallions",
       "hero.mega1": "Pride · Power · Roar · Pride · Power · Roar ·",
       "hero.mega2": "Montréal · Lions · CNPL · Montréal · Lions · CNPL ·",
+      "reel.alt": "A Montreal Lions paddle, red pinstriped jersey, red ball and white court shoes floating in a dark studio",
+      "reel.h1a": "Built", "reel.h1b": "to roar.",
+      "reel.lead": "Scroll to take a Lions paddle apart, layer by layer.",
+      "reel.hint": "Scroll",
+      "reel.w1": "Carbon", "reel.w2": "Core", "reel.w3": "Roar", "reel.w4": "Pride",
+      "reel.co1": "Carbon face", "reel.co2": "Honeycomb core", "reel.co3": "Edge guard",
+      "reel.b1h": "Carbon face", "reel.b1p": "Textured carbon for spin and touch on every dink.",
+      "reel.b2h": "Honeycomb core", "reel.b2p": "It takes the hit and gives the power back.",
+      "reel.b3h": "Locked in", "reel.b3p": "Every layer together. One Pride.",
+      "reel.f1": "Wear", "reel.f2": "the Pride.",
+      "reel.t1": "Paddle", "reel.t2": "Jersey", "reel.t3": "Ball", "reel.t4": "Shoes",
       "plate.alt": "Montreal Lions players in red jerseys standing together on court with their paddles",
       "plate.cap": "Welcome to the Pride",
       "hon.label": "The trophy cabinet",
@@ -974,6 +1130,17 @@ main{position:relative}
       "hero.cta2": "Suivez @montreallions",
       "hero.mega1": "Fierté · Puissance · Meute · Fierté · Puissance · Meute ·",
       "hero.mega2": "Montréal · Lions · CNPL · Montréal · Lions · CNPL ·",
+      "reel.alt": "Une raquette, un maillot rouge à fines rayures, une balle rouge et des chaussures blanches aux couleurs des Lions de Montréal, en suspension dans un studio sombre",
+      "reel.h1a": "Nés", "reel.h1b": "pour rugir.",
+      "reel.lead": "Faites défiler pour démonter une raquette des Lions, couche par couche.",
+      "reel.hint": "Défilez",
+      "reel.w1": "Carbone", "reel.w2": "Cœur", "reel.w3": "Rugir", "reel.w4": "Meute",
+      "reel.co1": "Face en carbone", "reel.co2": "Cœur alvéolé", "reel.co3": "Bordure",
+      "reel.b1h": "Face en carbone", "reel.b1p": "Un carbone texturé pour l’effet et le toucher à chaque amorti.",
+      "reel.b2h": "Cœur alvéolé", "reel.b2p": "Il encaisse l’impact et redonne la puissance.",
+      "reel.b3h": "Verrouillée", "reel.b3p": "Chaque couche réunie. Une seule meute.",
+      "reel.f1": "Portez", "reel.f2": "la meute.",
+      "reel.t1": "Raquette", "reel.t2": "Maillot", "reel.t3": "Balle", "reel.t4": "Chaussures",
       "plate.alt": "Les joueurs des Lions en maillot rouge réunis sur le terrain, raquette en main",
       "plate.cap": "Bienvenue dans la meute",
       "hon.label": "La vitrine des trophées",
@@ -1339,13 +1506,14 @@ main{position:relative}
     }
 
     /* ---------- Hero: crest turns, words slide, photo settles ---------- */
-    var hero = $(".hero"), logo = $(".hero-logo"), h1 = $(".hero h1"), rows = $$(".mega-row");
-    var plate = $(".plate"), plateImg = $(".plate-media img"), heroH = 1;
+    var hero = $(".hero"), logo = $(".hero-logo"), h1 = $(".hero .hero-h"), rows = $$(".mega-row");
+    var plate = $(".plate"), plateImg = $(".plate-media img"), heroH = 1, heroTop = 0;
     if (hero && logo) {
       scrub({
         smooth: .14,
-        measure: function () { heroH = Math.max(1, hero.offsetHeight); },
-        target: function () { return clamp(sy / heroH, 0, 1); },
+        /* The reel sits above, so run from "entering" to "scrolled past". */
+        measure: function () { heroTop = docBox(hero).y; heroH = Math.max(1, hero.offsetHeight); },
+        target: function () { return clamp((sy + vh * .5 - heroTop) / heroH, 0, 1); },
         render: function (p) {
           if (rows[0]) { rows[0].style.translate = (-p * .35 * vw) + "px 0"; }
           if (rows[1]) { rows[1].style.translate = (p * .35 * vw) + "px 0"; }
@@ -1600,6 +1768,197 @@ main{position:relative}
     /* If anything fails, fall back to the static page. */
     root.classList.remove("motion", "lineup-on", "strip-on");
     if (window.console) { console.warn("Motion disabled:", err); }
+  }
+})();
+</script>
+<script>
+/* Reel: plays the paddle film one frame per scroll position, with the
+   chapter copy, spec callouts, impact flash and product tags timed to it.
+   Without this script, or with reduced motion, the static poster shows. */
+(function () {
+  "use strict";
+  var reel = document.querySelector(".reel");
+  var mm = window.matchMedia;
+  if (!reel || !mm || mm("(prefers-reduced-motion: reduce)").matches || !window.requestAnimationFrame) { return; }
+  var canvas = reel.querySelector(".reel-canvas");
+  var ctx = canvas && canvas.getContext && canvas.getContext("2d");
+  if (!ctx) { return; }
+
+  var N = 216, VW = 1280, VH = 720, BG = "#070304";
+  var P_END = .86;    /* the film ends here; the rest of the scroll holds the kit */
+  var P_HIT = .472;   /* frame 118: the paddle locks and the shot cuts to the kit */
+  var sticky = reel.querySelector(".reel-sticky");
+  function q(s) { return Array.prototype.slice.call(reel.querySelectorAll(s)); }
+  var intro = reel.querySelector(".reel-intro"), finale = reel.querySelector(".reel-finale");
+  var hint = reel.querySelector(".reel-hint"), scrim = reel.querySelector(".reel-scrim");
+  var flash = reel.querySelector(".reel-flash"), wave = reel.querySelector(".reel-wave");
+  var beats = q(".reel-beat"), tags = q(".reel-tag"), meter = q(".reel-meter i"), words = q(".reel-mega span");
+  var cos = q(".reel-co").map(function (el) {
+    return { el: el, k: el.getAttribute("data-k").split(",").map(function (t) { return t.split(":").map(Number); }) };
+  });
+
+  function clamp(v, a, b) { a = a === undefined ? 0 : a; b = b === undefined ? 1 : b; return v < a ? a : v > b ? b : v; }
+  function lerp(a, b, t) { return a + (b - a) * t; }
+  function ease(t) { t = clamp(t); return t * t * (3 - 2 * t); }
+  /* 0 outside [a, d], ramps up over [a, b], holds, ramps down over [c, d]. */
+  function band(p, a, b, c, d) { return p <= a || p >= d ? 0 : p < b ? (p - a) / (b - a) : p > c ? (d - p) / (d - c) : 1; }
+
+  /* ---- frames ---- */
+  var imgs = new Array(N), prog = 0, geo = null;
+  function pad(n) { return n < 10 ? "00" + n : n < 100 ? "0" + n : String(n); }
+  function ready(im) { return im && im.complete && im.naturalWidth > 0; }
+  function load(i) {
+    if (imgs[i]) { return imgs[i]; }
+    var im = new Image();
+    im.decoding = "async";
+    im.onload = function () { if (Math.abs(i - frameAt(prog)) < 3) { draw(); } };
+    im.src = "img/reel/" + pad(i + 1) + ".webp";
+    imgs[i] = im;
+    return im;
+  }
+  function frameAt(p) { return Math.min(N - 1, Math.round(clamp(p / P_END) * (N - 1))); }
+
+  /* ---- framing: where the 1280x720 film sits in the stage ---- */
+  function layout() {
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var w = sticky.clientWidth, h = sticky.clientHeight;
+    canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+    geo = { dpr: dpr, w: w, h: h, narrow: w < 861 };
+  }
+  function place(p) {
+    var w = geo.w, h = geo.h, s, cx, cy;
+    var t0 = ease(p / .12), tf = ease((p - .56) / .12);
+    if (geo.narrow) {
+      s = lerp(lerp(w / 760, w / 700, t0), w / 860, tf);
+      cx = w / 2;
+      cy = lerp(lerp(h * .64, h * .5, t0), h * .66, tf);
+    } else {
+      var cover = Math.max(w / VW, h / VH);
+      s = lerp(lerp(cover * .86, cover, t0), cover * .78, tf);
+      cx = lerp(lerp(w * .64, w * .5, t0), w * .66, tf);
+      cy = h / 2;
+    }
+    /* A short, decaying shake when the layers slam together. */
+    var hit = band(p, P_HIT - .012, P_HIT, P_HIT, P_HIT + .05);
+    var sx = Math.sin(p * 2400) * 9 * hit, sy = Math.cos(p * 1900) * 6 * hit;
+    return { s: s, ox: cx - VW / 2 * s + sx, oy: cy - VH / 2 * s + sy };
+  }
+
+  function draw() {
+    if (!geo) { return; }
+    var g = place(prog), i = frameAt(prog), im = imgs[i];
+    if (!ready(im)) { for (var j = i; j >= 0; j--) { if (ready(imgs[j])) { im = imgs[j]; break; } } }
+    var w = geo.w, h = geo.h;
+    ctx.setTransform(geo.dpr, 0, 0, geo.dpr, 0, 0);
+    ctx.fillStyle = BG; ctx.fillRect(0, 0, w, h);
+    if (ready(im)) {
+      var dw = VW * g.s, dh = VH * g.s;
+      ctx.drawImage(im, g.ox, g.oy, dw, dh);
+      /* Feather the film's edges into the stage colour. */
+      var e = Math.max(40, 110 * g.s);
+      edge(g.ox, 0, g.ox + e, 0, g.ox, g.oy, e, dh);
+      edge(g.ox + dw, 0, g.ox + dw - e, 0, g.ox + dw - e, g.oy, e, dh);
+      edge(0, g.oy, 0, g.oy + e, g.ox, g.oy, dw, e);
+      edge(0, g.oy + dh, 0, g.oy + dh - e, g.ox, g.oy + dh - e, dw, e);
+    }
+    if (!geo.narrow) { follow(g, i); }
+  }
+  function edge(x0, y0, x1, y1, rx, ry, rw, rh) {
+    var gr = ctx.createLinearGradient(x0, y0, x1, y1);
+    gr.addColorStop(0, "rgba(7,3,4,1)"); gr.addColorStop(1, "rgba(7,3,4,0)");
+    ctx.fillStyle = gr; ctx.fillRect(rx, ry, rw, rh);
+  }
+
+  /* Callouts track the floating layers through hand-placed keyframes. */
+  function follow(g, f) {
+    cos.forEach(function (c) {
+      var k = c.k, a = k[0], b = k[k.length - 1], x, y;
+      var on = f >= a[0] + 4 && f <= b[0] - 2;
+      c.el.classList.toggle("on", on);
+      if (f <= a[0]) { x = a[1]; y = a[2]; }
+      else if (f >= b[0]) { x = b[1]; y = b[2]; }
+      else {
+        for (var n = 1; n < k.length; n++) {
+          if (f <= k[n][0]) {
+            var t = (f - k[n - 1][0]) / (k[n][0] - k[n - 1][0]);
+            x = lerp(k[n - 1][1], k[n][1], t); y = lerp(k[n - 1][2], k[n][2], t);
+            break;
+          }
+        }
+      }
+      c.el.style.transform = "translate(" + (g.ox + x * g.s).toFixed(1) + "px," + (g.oy + y * g.s).toFixed(1) + "px)";
+    });
+    tags.forEach(function (t) {
+      t.style.left = (g.ox + Number(t.getAttribute("data-x")) * g.s).toFixed(1) + "px";
+      t.style.top = (g.oy + Number(t.getAttribute("data-y")) * g.s).toFixed(1) + "px";
+    });
+  }
+
+  /* ---- everything else timed to the scroll ---- */
+  var WORDS = [[.08, .13, .21, .25], [.25, .29, .36, .40], [.40, .44, .5, .55], [.58, .66, 1.01, 1.02]];
+  function update() {
+    var p = prog;
+    draw();
+    var fi = clamp(1 - p / .06);
+    intro.style.opacity = fi;
+    intro.style.visibility = fi < .01 ? "hidden" : "";
+    hint.style.opacity = clamp(1 - p / .03);
+    finale.classList.toggle("on", p >= .6);
+    scrim.style.opacity = Math.max(fi, ease((p - .55) / .08), .25);
+
+    var active = -1;
+    beats.forEach(function (b, i) {
+      var on = p >= Number(b.getAttribute("data-from")) && p < Number(b.getAttribute("data-to"));
+      b.classList.toggle("on", on);
+      if (on) { active = i; }
+    });
+    if (p >= .6) { active = 3; }
+    meter.forEach(function (m, i) { m.classList.toggle("on", p >= .07 && i <= active); });
+    tags.forEach(function (t) { t.classList.toggle("on", p >= Number(t.getAttribute("data-at"))); });
+    if (geo && geo.narrow) { cos.forEach(function (c) { c.el.classList.remove("on"); }); }
+
+    words.forEach(function (el, i) {
+      var r = WORDS[i], o = band(p, r[0], r[1], r[2], r[3]), t = clamp((p - r[0]) / (r[3] - r[0]));
+      el.style.opacity = i === 3 ? o * .55 : o;
+      el.style.transform = "translateX(" + lerp(14, -14, i === 3 ? clamp((p - r[0]) / .4) : t).toFixed(2) + "vw)";
+    });
+
+    var fl = band(p, P_HIT - .016, P_HIT, P_HIT, P_HIT + .03);
+    flash.style.opacity = (fl * fl).toFixed(3);
+    var wt = clamp((p - (P_HIT - .008)) / .07);
+    wave.style.opacity = (wt > 0 && wt < 1 ? 1 - wt : 0).toFixed(3);
+    wave.style.scale = String(lerp(.2, 4.2, ease(wt)));
+  }
+
+  var ticking = false;
+  function measure() { var total = reel.offsetHeight - sticky.offsetHeight; return total > 0 ? total : 1; }
+  var total = 1;
+  function onScroll() {
+    ticking = false;
+    var top = parseFloat(getComputedStyle(sticky).top) || 0;
+    prog = clamp((top - reel.getBoundingClientRect().top) / total);
+    update();
+  }
+  function kick() { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }
+  function relayout() { layout(); total = measure(); onScroll(); }
+
+  try {
+    reel.classList.add("reel-on");
+    load(0);
+    /* Fetch the rest in order, a few at a time, without blocking first paint. */
+    var next = 1;
+    (function pump() {
+      for (var k = 0; k < 6 && next < N; k++) { load(next++); }
+      if (next < N) { setTimeout(pump, 40); }
+    })();
+    relayout();
+    window.addEventListener("scroll", kick, { passive: true });
+    window.addEventListener("resize", relayout);
+    window.addEventListener("load", relayout);
+    if (document.fonts && document.fonts.ready) { document.fonts.ready.then(relayout); }
+  } catch (err) {
+    reel.classList.remove("reel-on");
+    if (window.console) { console.warn("Reel disabled:", err); }
   }
 })();
 </script>
