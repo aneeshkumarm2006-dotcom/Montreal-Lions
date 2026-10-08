@@ -1,0 +1,26 @@
+[
+  {
+    "output": "img/gallery-1.webp",
+    "source": "../_ai_context/images/MontrealLions-110.jpg"
+  },
+  {
+    "output": "img/gallery-2.webp",
+    "source": "../_ai_context/images/MontrealLions-47.jpg"
+  },
+  {
+    "output": "img/gallery-3.webp",
+    "source": "../_ai_context/images/MontrealLionsIntro-17.jpg"
+  },
+  {
+    "output": "img/gallery-4.webp",
+    "source": "../_ai_context/images/MontrealLionsIntro-8.jpg"
+  },
+  {
+    "output": "img/gallery-5.webp",
+    "source": "../_ai_context/images/MontrealLions-96.jpg"
+  },
+  {
+    "output": "img/gallery-6.webp",
+    "source": "../_ai_context/images/MontrealLionsIntro-13.jpg"
+  }
+]
