@@ -338,7 +338,7 @@ button{font:inherit}
 .gal-num{padding:10px 14px}
 @media(max-width:640px){.gal-grid{grid-template-columns:1fr 1fr;gap:8px}.gal-grid figure:first-child{grid-column:1/-1;grid-row:auto}.gal-grid figure:first-child img{height:auto}.gal-grid figure:last-child{grid-column:1/-1}}
 
-/* First-visit welcome: the intact crest rises into place. */
+/* Page-load welcome: the intact crest rises into place. */
 .welcome{position:fixed;inset:0;z-index:200;background:radial-gradient(ellipse at 50% 45%,#8E1622 0%,#39080E 75%);color:white;display:grid;place-items:center;text-align:center;padding:30px;overflow:hidden;animation:welcomeAway .65s 3s ease-in-out forwards}
 .welcome::before{content:"";position:absolute;inset:20px;border:1px solid var(--gold-faint);pointer-events:none}
 .welcome-inner{position:relative;width:min(100%,640px)}
@@ -363,13 +363,13 @@ button{font:inherit}
 </div>
 <script>
 (function(){
- var el=document.getElementById('welcome'),seen=false,fr=false;
- try{seen=sessionStorage.getItem('lions-welcomed-rise-v3')==='1';fr=localStorage.getItem('mtl-lions-lang')==='fr';}catch(e){}
- if(seen||location.hash||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+ var el=document.getElementById('welcome'),fr=false;
+ try{fr=localStorage.getItem('mtl-lions-lang')==='fr';}catch(e){}
+ if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
  if(fr){document.getElementById('welcome-title').textContent='Bienvenue chez les Lions';document.getElementById('welcome-skip').textContent='Entrez dans la meute ↗';el.setAttribute('aria-label','Bienvenue chez les Lions');}
  el.hidden=false;
  var oldOverflow=document.documentElement.style.overflow;document.documentElement.style.overflow='hidden';
- function close(){el.hidden=true;document.documentElement.style.overflow=oldOverflow;document.removeEventListener('keydown',keys);try{sessionStorage.setItem('lions-welcomed-rise-v3','1');}catch(e){} if(document.activeElement===btn)document.querySelector('.crest').focus();}
+ function close(){el.hidden=true;document.documentElement.style.overflow=oldOverflow;document.removeEventListener('keydown',keys);if(document.activeElement===btn)document.querySelector('.crest').focus();}
  var btn=document.getElementById('welcome-skip');btn.addEventListener('click',close);
  function keys(e){if(e.key==='Escape')close();if(e.key==='Tab'){e.preventDefault();btn.focus();}}
  document.addEventListener('keydown',keys);setTimeout(close,3700);
