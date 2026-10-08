@@ -11,13 +11,13 @@ Open `index.html` in a browser, or run `python -m http.server 8000` here for a l
 
 Scroll-driven motion is built in with a small dependency-free script at the end of `index.html` (no external libraries):
 
-- Hero: the crest turns as you scroll, giant outlined words slide behind it, the team photo settles, and a pickleball flies down to the trophy cabinet.
+- Hero: giant outlined words slide behind the crest as you scroll and the team photo settles.
 - Honours: the 6–0 record counts up like a scoreboard; the trophy photo zooms out.
-- Schedule: a red route line draws down the season with a ball marker; each event stamps in.
+- Schedule: a red route line draws down the season; each event stamps in.
 - Roster ("The lineup."): on wide screens the section pins and shows one Lion at a time; signature tips open over the photo.
 - Owner: the photo assembles from particles.
 - Gallery: on wide screens it becomes a horizontal film strip with parallax.
-- Everywhere: heading wipes, red curtain photo reveals, a gold scroll-progress line, film grain, hover tilt and a custom cursor on mouse devices.
+- Everywhere: heading wipes, red curtain photo reveals, a gold scroll-progress line, film grain, and a hover tilt on mouse devices.
 
 Headlines in the loud moments use the Anton display font (Google Fonts). With reduced motion, or if the script fails, the page falls back to the plain static layout, and phones get a simpler version without pinned sections.
 
