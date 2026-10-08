@@ -229,7 +229,7 @@ button{font:inherit}
 .roster-intro{color:var(--mute);max-width:40ch}
 .roster-grid{display:grid;grid-template-columns:1fr;column-gap:24px}
 @media (min-width:600px){.roster-grid{grid-template-columns:repeat(2,1fr)}}
-@media (min-width:1060px){.roster-grid{grid-template-columns:repeat(4,1fr)}}
+@media (min-width:1060px){.roster-grid{grid-template-columns:repeat(3,1fr)}}
 .pp{display:grid;grid-template-rows:subgrid;grid-row:span 5;align-content:start}
 .pp-frame{position:relative;border:1px solid var(--red);padding:9px;background:#FFFFFF}
 .pp-frame::after{content:"";position:absolute;inset:4px;border:1px solid rgba(199,32,47,.22);pointer-events:none}
@@ -237,6 +237,7 @@ button{font:inherit}
 .pp-name{margin-top:20px;font-size:1.4rem;line-height:1.08;color:var(--ink)}
 .pp-name .first{display:block;font-size:.95rem;letter-spacing:.14em;color:var(--red);margin-bottom:4px}
 .pp-quote{margin-top:12px;font-style:italic;color:var(--ink-2);line-height:1.55}
+.pp-note{margin-top:12px;color:var(--mute);line-height:1.55;padding-bottom:44px}
 .pp-btn{justify-self:start;align-self:start;margin-top:18px;display:inline-flex;align-items:center;gap:12px;min-height:46px;padding:12px 16px;background:transparent;border:1px solid var(--ink);color:var(--ink);font:700 .75rem/1.2 var(--sans);letter-spacing:.16em;text-transform:uppercase;text-align:left;cursor:pointer;transition:background-color .2s,color .2s,border-color .2s;--focus:#8E1622}
 .pp-btn:hover{border-color:var(--red);color:var(--red)}
 .pm{position:relative;width:12px;height:12px;flex:0 0 auto}
@@ -443,10 +444,11 @@ main{position:relative}
 .lineup-on .pp{width:var(--card-w,1120px);grid-row:auto;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);grid-template-rows:auto auto 1fr;column-gap:clamp(32px,4vw,64px);align-items:start;transform-origin:50% 60%}
 .lineup-on .pp-frame{grid-column:1;grid-row:1/4;padding:10px}
 .lineup-on .pp-frame img{aspect-ratio:auto;height:min(50vh,560px);scale:1.12}
-.lineup-on .pp-name,.lineup-on .pp-quote,.lineup-on .pp-btn{grid-column:2}
+.lineup-on .pp-name,.lineup-on .pp-quote,.lineup-on .pp-note,.lineup-on .pp-btn{grid-column:2}
+.lineup-on .pp-note{margin-top:22px;font-size:clamp(1.05rem,1.4vw,1.25rem);padding-bottom:0}
 .lineup-on .pp-name{margin-top:4px;font:400 clamp(2.6rem,4.2vw,4.6rem)/.9 var(--display);text-transform:uppercase;letter-spacing:.005em}
 .lineup-on .pp-name .first{font:700 1rem/1 var(--serif);letter-spacing:.2em;margin-bottom:14px;text-transform:none}
-.lineup-on .pp-name::before{content:counter(pl,decimal-leading-zero) " / 04";font:700 .75rem/1 var(--sans);letter-spacing:.3em;color:var(--mute);margin-bottom:22px}
+.lineup-on .pp-name::before{content:counter(pl,decimal-leading-zero) " / 06";font:700 .75rem/1 var(--sans);letter-spacing:.3em;color:var(--mute);margin-bottom:22px}
 .lineup-on .pp-quote{margin-top:22px;font-size:clamp(1.1rem,1.5vw,1.35rem);max-width:30ch}
 .lineup-on .pp-btn{margin-top:26px}
 .lineup-on .pp-tipwrap{grid-column:1;grid-row:1/4;align-self:end;position:relative;z-index:4;padding:0 20px 20px;pointer-events:none}
@@ -839,20 +841,9 @@ main{position:relative}
           <p class="label" data-i18n="roster.label">Meet the Lions</p>
           <h2 class="sec-title" id="roster-h" data-i18n="roster.h">The lineup.</h2>
         </div>
-        <p class="roster-intro" data-i18n="roster.intro">Four players, four signature tips. Open a plate to learn how each Lion plays the game.</p>
+        <p class="roster-intro" data-i18n="roster.intro">Six Lions for the 2026 season. Open a plate to read a player’s signature tip.</p>
       </div>
       <div class="roster-grid">
-        <article class="pp">
-          <div class="pp-frame"><img src="img/MontrealLionsIntro-13.jpg" width="3275" height="2620" loading="lazy" alt="Two Lions teammates in red jerseys preparing for doubles play" data-i18n-alt="p1.alt"></div>
-          <h3 class="pp-name"><span class="first">Stevie</span> Petropouleas</h3>
-          <p class="pp-quote" data-i18n="p1.q">“I’ve learned that every mistake is a lesson: learn, adapt, and become a better player.”</p>
-          <button class="pp-btn" type="button" aria-expanded="false" aria-controls="tip-1"><span class="pm" aria-hidden="true"></span><span data-i18n="p1.btn">Signature tip</span></button>
-          <div class="pp-tipwrap"><div class="pp-tip" id="tip-1" hidden>
-            <p class="pp-tip-t" data-i18n="p1.tip">Communicate with your partner.</p>
-            <dl><div><dt data-i18n="tip.why">Why it matters</dt><dd data-i18n="p1.why">Communication ensures coordination, prevents confusion and strengthens teamwork.</dd></div>
-            <div><dt data-i18n="tip.how">How I do it</dt><dd class="how" data-i18n="p1.how">“I call shots and let my partner know when I’m moving or covering a specific area.”</dd></div></dl>
-          </div></div>
-        </article>
         <article class="pp">
           <div class="pp-frame"><img src="img/MontrealLionsIntro-37.jpg" width="3275" height="2620" loading="lazy" alt="Two Lions teammates in red jerseys ready on court with their paddles" data-i18n-alt="p2.alt"></div>
           <h3 class="pp-name"><span class="first">Ernesto</span> Fajardo</h3>
@@ -865,17 +856,6 @@ main{position:relative}
           </div></div>
         </article>
         <article class="pp">
-          <div class="pp-frame"><img src="img/MontrealLions-116.jpg" width="3280" height="2624" loading="lazy" alt="Two Lions teammates smiling together on court with their paddles" data-i18n-alt="p3.alt"></div>
-          <h3 class="pp-name"><span class="first">Anne-Sophie</span> Courteau</h3>
-          <p class="pp-quote" data-i18n="p3.q">“For me, pickleball isn’t just about skills; it’s about the heart I put into every point.”</p>
-          <button class="pp-btn" type="button" aria-expanded="false" aria-controls="tip-3"><span class="pm" aria-hidden="true"></span><span data-i18n="p3.btn">Signature tip</span></button>
-          <div class="pp-tipwrap"><div class="pp-tip" id="tip-3" hidden>
-            <p class="pp-tip-t" data-i18n="p3.tip">Focus on a solid serve.</p>
-            <dl><div><dt data-i18n="tip.why">Why it matters</dt><dd data-i18n="p3.why">A solid serve sets the tone and gives you control.</dd></div>
-            <div><dt data-i18n="tip.how">How I do it</dt><dd class="how" data-i18n="p3.how">“I keep my serve consistent and deep, mixing in spin and targeting different areas to keep my opponent guessing.”</dd></div></dl>
-          </div></div>
-        </article>
-        <article class="pp">
           <div class="pp-frame"><img src="img/MontrealLionsIntro-36.jpg" width="3275" height="2620" loading="lazy" alt="Two Lions teammates covering the court during doubles play" data-i18n-alt="p4.alt"></div>
           <h3 class="pp-name"><span class="first">Louis-Charles</span> Amyot</h3>
           <p class="pp-quote" data-i18n="p4.q">“In pickleball, as in life, consistency and perseverance lead to greatness.”</p>
@@ -885,6 +865,26 @@ main{position:relative}
             <dl><div><dt data-i18n="tip.why">Why it matters</dt><dd data-i18n="p4.why">Quick reactions, balance and shot anticipation.</dd></div>
             <div><dt data-i18n="tip.how">How I do it</dt><dd class="how" data-i18n="p4.how">“I stay balanced with my paddle in front of me, ready to move quickly in any direction.”</dd></div></dl>
           </div></div>
+        </article>
+        <article class="pp">
+          <div class="pp-frame"><img src="img/MontrealLionsIntro-13.jpg" width="3275" height="2620" loading="lazy" alt="Two Lions teammates in red jerseys preparing for doubles play" data-i18n-alt="p1.alt"></div>
+          <h3 class="pp-name"><span class="first">Christina</span> Chin</h3>
+          <p class="pp-note" data-i18n="p1.note">New Lion for the 2026 season.</p>
+        </article>
+        <article class="pp">
+          <div class="pp-frame"><img src="img/MontrealLions-116.jpg" width="3280" height="2624" loading="lazy" alt="Two Lions teammates smiling together on court with their paddles" data-i18n-alt="p3.alt"></div>
+          <h3 class="pp-name"><span class="first">Ariana</span> Rodriguez</h3>
+          <p class="pp-note" data-i18n="p3.note">Joined through the 2026 CNPL Draft.</p>
+        </article>
+        <article class="pp">
+          <div class="pp-frame"><img src="img/MontrealLions-47.jpg" width="3155" height="2524" loading="lazy" alt="Lions player reaching forward for a shot during a match" data-i18n-alt="p5.alt"></div>
+          <h3 class="pp-name"><span class="first">Michael</span> McCaffrey</h3>
+          <p class="pp-note" data-i18n="p5.note">Joined through the 2026 CNPL Draft.</p>
+        </article>
+        <article class="pp">
+          <div class="pp-frame"><img src="img/MontrealLionsIntro-17.jpg" width="3275" height="2620" loading="lazy" alt="Lions player in a red jersey preparing her paddle at the net" data-i18n-alt="p6.alt"></div>
+          <h3 class="pp-name"><span class="first">Maxine</span> Joly Chevrier</h3>
+          <p class="pp-note" data-i18n="p6.note">Joined through the 2026 CNPL Draft.</p>
         </article>
       </div>
       <div class="lineup-bar" aria-hidden="true"><span></span></div>
@@ -1055,33 +1055,29 @@ main{position:relative}
       "ev5.gloss": "", "ev6.gloss": "", "ev7.gloss": "", "ev8.gloss": "",
       "roster.label": "Meet the Lions",
       "roster.h": "The lineup.",
-      "roster.intro": "Four players, four signature tips. Open a plate to learn how each Lion plays the game.",
+      "roster.intro": "Six Lions for the 2026 season. Open a plate to read a player’s signature tip.",
       "tip.why": "Why it matters",
       "tip.how": "How I do it",
-      "p1.alt": "Two Lions teammates in red jerseys preparing for doubles play",
-      "p1.q": "“I’ve learned that every mistake is a lesson: learn, adapt, and become a better player.”",
-      "p1.btn": "Signature tip",
-      "p1.tip": "Communicate with your partner.",
-      "p1.why": "Communication ensures coordination, prevents confusion and strengthens teamwork.",
-      "p1.how": "“I call shots and let my partner know when I’m moving or covering a specific area.”",
       "p2.alt": "Two Lions teammates in red jerseys ready on court with their paddles",
       "p2.q": "“I believe the true victory is found in every rally, not just the scoreboard.”",
       "p2.btn": "Signature tip",
       "p2.tip": "Master the dink shot.",
       "p2.why": "The dink controls the game, forces movement and creates attacking chances in the kitchen.",
       "p2.how": "“I keep my dinks low and place them strategically to force my opponent to move and make mistakes.”",
-      "p3.alt": "Two Lions teammates smiling together on court with their paddles",
-      "p3.q": "“For me, pickleball isn’t just about skills; it’s about the heart I put into every point.”",
-      "p3.btn": "Signature tip",
-      "p3.tip": "Focus on a solid serve.",
-      "p3.why": "A solid serve sets the tone and gives you control.",
-      "p3.how": "“I keep my serve consistent and deep, mixing in spin and targeting different areas to keep my opponent guessing.”",
       "p4.alt": "Two Lions teammates covering the court during doubles play",
       "p4.q": "“In pickleball, as in life, consistency and perseverance lead to greatness.”",
       "p4.btn": "Signature tip",
       "p4.tip": "Stay in the ready position.",
       "p4.why": "Quick reactions, balance and shot anticipation.",
       "p4.how": "“I stay balanced with my paddle in front of me, ready to move quickly in any direction.”",
+      "p1.alt": "Two Lions teammates in red jerseys preparing for doubles play",
+      "p1.note": "New Lion for the 2026 season.",
+      "p3.alt": "Two Lions teammates smiling together on court with their paddles",
+      "p3.note": "Joined through the 2026 CNPL Draft.",
+      "p5.alt": "Lions player reaching forward for a shot during a match",
+      "p5.note": "Joined through the 2026 CNPL Draft.",
+      "p6.alt": "Lions player in a red jersey preparing her paddle at the net",
+      "p6.note": "Joined through the 2026 CNPL Draft.",
       "owner.label": "From the owner’s box",
       "owner.alt": "Lions players and staff talking together beside the court",
       "owner.role": "Owner · Professional player",
@@ -1177,33 +1173,29 @@ main{position:relative}
       "ev7.gloss": "Finale de la saison", "ev8.gloss": "Séries éliminatoires",
       "roster.label": "Les Lions",
       "roster.h": "L’alignement.",
-      "roster.intro": "Quatre joueurs, quatre conseils signature. Ouvrez une plaque pour découvrir le jeu de chaque Lion.",
+      "roster.intro": "Six Lions pour la saison 2026. Ouvrez une plaque pour lire le conseil signature d’un joueur.",
       "tip.why": "Pourquoi c’est important",
       "tip.how": "Comment je m’y prends",
-      "p1.alt": "Deux coéquipières des Lions en maillot rouge se préparent pour un match en double",
-      "p1.q": "«" + NB + "J’ai appris que chaque erreur est une leçon" + NB + ": apprendre, s’adapter et devenir une meilleure joueuse." + NB + "»",
-      "p1.btn": "Le conseil de Stevie",
-      "p1.tip": "Communiquez avec votre partenaire.",
-      "p1.why": "La communication assure la coordination, évite la confusion et renforce l’esprit d’équipe.",
-      "p1.how": "«" + NB + "J’annonce mes coups et j’avise ma ou mon partenaire quand je me déplace ou que je couvre une zone précise." + NB + "»",
       "p2.alt": "Deux coéquipiers des Lions en maillot rouge prêts sur le terrain, raquette en main",
       "p2.q": "«" + NB + "Je crois que la vraie victoire se trouve dans chaque échange, pas seulement au tableau." + NB + "»",
       "p2.btn": "Le conseil d’Ernesto",
       "p2.tip": "Maîtrisez le dink.",
       "p2.why": "Le dink contrôle le jeu, force l’adversaire à bouger et crée des occasions d’attaque dans la cuisine.",
       "p2.how": "«" + NB + "Je garde mes dinks bas et je les place stratégiquement pour forcer mon adversaire à bouger et à commettre des erreurs." + NB + "»",
-      "p3.alt": "Deux coéquipières des Lions sourient sur le terrain, raquette en main",
-      "p3.q": "«" + NB + "Pour moi, le pickleball, ce n’est pas juste une question d’habiletés" + NB + "; c’est le cœur que je mets dans chaque point." + NB + "»",
-      "p3.btn": "Le conseil d’Anne-Sophie",
-      "p3.tip": "Misez sur un service solide.",
-      "p3.why": "Un bon service donne le ton et vous met en contrôle.",
-      "p3.how": "«" + NB + "Je garde mon service constant et profond, j’y ajoute de l’effet et je vise différentes zones pour que mon adversaire ne sache jamais à quoi s’attendre." + NB + "»",
       "p4.alt": "Deux coéquipiers des Lions couvrent le terrain pendant un match en double",
       "p4.q": "«" + NB + "Au pickleball comme dans la vie, la constance et la persévérance mènent à la grandeur." + NB + "»",
       "p4.btn": "Le conseil de Louis-Charles",
       "p4.tip": "Restez en position prête.",
       "p4.why": "Des réactions rapides, un bon équilibre et une meilleure anticipation des coups.",
       "p4.how": "«" + NB + "Je reste bien équilibré, la raquette devant moi, prêt à partir rapidement dans n’importe quelle direction." + NB + "»",
+      "p1.alt": "Deux coéquipières des Lions en maillot rouge se préparent pour un match en double",
+      "p1.note": "Nouvelle recrue des Lions pour la saison 2026.",
+      "p3.alt": "Deux coéquipières des Lions sourient sur le terrain, raquette en main",
+      "p3.note": "Recrue du repêchage 2026 de la CNPL.",
+      "p5.alt": "Joueur des Lions qui s’étire vers l’avant pour frapper la balle pendant un match",
+      "p5.note": "Recrue du repêchage 2026 de la CNPL.",
+      "p6.alt": "Joueuse des Lions en maillot rouge qui prépare sa raquette au filet",
+      "p6.note": "Recrue du repêchage 2026 de la CNPL.",
       "owner.label": "La loge du propriétaire",
       "owner.alt": "Les joueurs et le personnel des Lions échangent au bord du terrain",
       "owner.role": "Propriétaire · joueur professionnel",
