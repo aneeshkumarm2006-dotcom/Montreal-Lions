@@ -69,7 +69,7 @@ button{font:inherit}
 /* ---------- Header ---------- */
 .site-head{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--red);color:#FFFFFF;border-bottom:1px solid var(--oxblood);--focus:#FFFFFF}
 .head-in{position:relative;max-width:1360px;margin:0 auto;padding-inline:var(--gutter);height:var(--head-h);display:grid;grid-template-columns:1fr auto 1fr;grid-template-areas:"menu crest lang";align-items:center;column-gap:12px}
-.crest{grid-area:crest;display:flex;align-items:center;justify-content:center;min-height:var(--crest-h);width:100px;text-decoration:none}
+.crest{grid-area:crest;display:block;height:var(--crest-h);width:calc(var(--crest-h) * .6884);overflow:hidden}
 .crest img{width:100%;height:auto}
 .menu-btn{grid-area:menu;justify-self:start;display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:8px 12px 8px 0;background:transparent;border:0;color:#FFFFFF;font:700 .75rem/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;cursor:pointer}
 .burger{position:relative;width:22px;height:14px}
@@ -111,7 +111,7 @@ button{font:inherit}
 .hero{position:relative;overflow:hidden;color:#FFFFFF;background:radial-gradient(120% 75% at 50% 0%,rgba(199,32,47,0) 35%,rgba(86,11,19,.6) 100%),var(--pinstripe),var(--red)}
 .hero-in{position:relative;max-width:1000px;margin:0 auto;padding:clamp(36px,6vw,72px) var(--gutter) clamp(48px,6vw,72px);display:flex;flex-direction:column;align-items:center;text-align:center}
 .hero-kicker{font:600 .75rem/1.3 var(--sans);letter-spacing:.3em;text-transform:uppercase;color:var(--on-red-soft)}
-.hero-logo{width:clamp(160px,20vw,240px);margin-top:22px;filter:drop-shadow(0 18px 26px rgba(60,6,12,.35))}
+.hero-logo{width:clamp(108px,12vw,150px);margin-top:22px;filter:drop-shadow(0 18px 26px rgba(60,6,12,.35))}
 .hero-rule{display:flex;align-items:center;gap:14px;margin-top:26px;font:700 .75rem/1.2 var(--sans);letter-spacing:.26em;text-transform:uppercase}
 .hero-rule::before,.hero-rule::after{content:"";width:clamp(28px,6vw,64px);height:1px;background:var(--gold)}
 .hero-rule svg{width:18px;height:11px;color:var(--gold);flex:0 0 auto}
@@ -293,7 +293,7 @@ button{font:inherit}
 /* ---------- Follow (pinstripe 2 of 2) ---------- */
 .follow{color:#FFFFFF;text-align:center;background:radial-gradient(110% 80% at 50% 100%,rgba(199,32,47,0) 35%,rgba(86,11,19,.6) 100%),var(--pinstripe),var(--red)}
 .follow-in{display:flex;flex-direction:column;align-items:center}
-.follow .crest-lg{width:160px}
+.follow .crest-lg{height:84px;width:calc(84px * .6884);overflow:hidden}
 .follow .crest-lg img{width:100%}
 .follow h2{margin-top:26px;font-size:clamp(2.3rem,6vw,4.6rem)}
 .follow .alt-line{margin-top:12px}
@@ -307,7 +307,7 @@ button{font:inherit}
 .foot{background:var(--black);color:rgba(255,255,255,.72);padding:48px 0 calc(32px + env(safe-area-inset-bottom,0px));font-size:.9375rem}
 .foot-grid{display:grid;gap:26px;align-items:center}
 @media (min-width:820px){.foot-grid{grid-template-columns:auto 1fr auto;gap:40px}}
-.foot-logo{width:100%;max-width:110px}
+.foot-logo{width:62px}
 .foot-tag{font:700 1rem/1.3 var(--serif);color:#FFFFFF;letter-spacing:.03em}
 .foot-league{margin-top:6px;font:600 .6875rem/1.4 var(--sans);letter-spacing:.24em;text-transform:uppercase}
 .foot-links{display:flex;flex-wrap:wrap;gap:10px 22px}
@@ -338,13 +338,13 @@ button{font:inherit}
 .gal-num{padding:10px 14px}
 @media(max-width:640px){.gal-grid{grid-template-columns:1fr 1fr;gap:8px}.gal-grid figure:first-child{grid-column:1/-1;grid-row:auto}.gal-grid figure:first-child img{height:auto}.gal-grid figure:last-child{grid-column:1/-1}}
 
-/* First-visit welcome: the text wordmark rises into place. */
+/* First-visit welcome: the intact crest rises into place. */
 .welcome{position:fixed;inset:0;z-index:200;background:radial-gradient(ellipse at 50% 45%,#8E1622 0%,#39080E 75%);color:white;display:grid;place-items:center;text-align:center;padding:30px;overflow:hidden;animation:welcomeAway .65s 3s ease-in-out forwards}
 .welcome::before{content:"";position:absolute;inset:20px;border:1px solid var(--gold-faint);pointer-events:none}
 .welcome-inner{position:relative;width:min(100%,640px)}
 .welcome-kicker{font:600 .7rem/1.4 var(--sans);letter-spacing:.38em;text-transform:uppercase;animation:welcomeText .7s .15s both}
 .welcome-stage{position:relative;width:300px;height:260px;max-width:100%;margin:18px auto;overflow:hidden}
-.welcome-mark{position:absolute;inset:22px 0;margin:auto;width:240px;height:208px;display:flex;align-items:center;justify-content:center;animation:crestRise 1.65s .15s cubic-bezier(.22,1,.36,1) both}
+.welcome-mark{position:absolute;inset:22px 0;margin:auto;width:110px;height:208px;animation:crestRise 1.65s .15s cubic-bezier(.22,1,.36,1) both}
 .welcome-mark img{width:100%;height:100%;filter:drop-shadow(0 12px 20px #21030766)}
 .welcome-title{font:700 clamp(1.7rem,4vw,3.2rem)/1.2 var(--serif);animation:welcomeText .8s 1.35s both}
 .welcome-line{height:1px;width:90px;margin:24px auto 0;background:var(--gold);animation:ruleDraw .8s 1.65s both}
@@ -354,17 +354,11 @@ button{font:inherit}
 @keyframes welcomeAway{to{opacity:0;visibility:hidden;transform:scale(1.025)}}
 @media(prefers-reduced-motion:reduce){.welcome{display:none}.gal-grid img{transition:none}}
 
-/* Text branding: all photographic assets come from the supplied image folder. */
-.brand-wordmark{display:block;color:inherit;text-align:center;font-family:var(--serif);line-height:1.1;text-transform:uppercase}
-.brand-wordmark>span{display:block;font:600 .625rem/1.5 var(--sans);letter-spacing:.2em}
-.brand-wordmark>strong{display:block;font-size:1.6rem;letter-spacing:.06em}
-.hero-logo .brand-wordmark>strong,.welcome-mark .brand-wordmark>strong{font-size:clamp(2.5rem,5vw,3.5rem)}
-.hero-logo .brand-wordmark>span,.welcome-mark .brand-wordmark>span{font-size:.875rem;letter-spacing:.3em}
 </style>
 
 
 <div class="welcome" id="welcome" hidden role="dialog" aria-modal="true" aria-label="Welcome to Montreal Lions">
- <div class="welcome-inner"><p class="welcome-kicker">Montréal Lions</p><div class="welcome-stage" aria-hidden="true"><div class="welcome-mark"><span class="brand-wordmark"><span>Montréal</span><strong>Lions</strong></span></div></div><p class="welcome-title" id="welcome-title">Welcome to the Pride</p><div class="welcome-line"></div></div>
+ <div class="welcome-inner"><p class="welcome-kicker">Montréal Lions</p><div class="welcome-stage" aria-hidden="true"><div class="welcome-mark"><img src="img/logo-on-dark.svg" width="169" height="318" alt=""></div></div><p class="welcome-title" id="welcome-title">Welcome to the Pride</p><div class="welcome-line"></div></div>
  <button class="welcome-skip" id="welcome-skip" type="button">Enter the Pride ↗</button>
 </div>
 <script>
@@ -399,7 +393,7 @@ button{font:inherit}
         <li><a href="#schedule" data-i18n="nav.schedule">Schedule</a></li>
       </ul>
     </nav>
-    <a class="crest" href="#top" aria-label="Montreal Lions, back to top" data-i18n-aria="aria.crest"><span class="brand-wordmark"><span>Montréal</span><strong>Lions</strong></span></a>
+    <a class="crest" href="#top"><img src="img/logo-on-dark.svg" width="169" height="318" alt="Montreal Lions, back to top" data-i18n-alt="aria.crest"></a>
     <nav class="dnav dnav-r" aria-label="More sections" data-i18n-aria="aria.nav2">
       <ul>
         <li><a href="#roster" data-i18n="nav.roster">Roster</a></li>
@@ -431,7 +425,7 @@ button{font:inherit}
     <p class="hero-side r" aria-hidden="true">CNPL · Pro Pickleball</p>
     <div class="hero-in">
       <p class="hero-kicker" data-i18n="hero.kicker">Pro pickleball · Montréal</p>
-      <div class="hero-logo"><span class="brand-wordmark"><span>Montréal</span><strong>Lions</strong></span></div>
+      <img class="hero-logo" src="img/logo-on-dark.svg" width="169" height="318" alt="Montreal Lions crest: a crowned lion in a shield above the MONTRÉAL LIONS wordmark" data-i18n-alt="hero.logoAlt">
       <p class="hero-rule"><svg viewBox="0 0 24 14" aria-hidden="true"><path d="M1 13 3 3l5 5 4-7 4 7 5-5 2 10z" fill="currentColor"/></svg><span data-i18n="hero.champs">2024 CNPL Champions</span><svg viewBox="0 0 24 14" aria-hidden="true"><path d="M1 13 3 3l5 5 4-7 4 7 5-5 2 10z" fill="currentColor"/></svg></p>
       <h1 id="hero-h"><span data-i18n="hero.h1a">Pride in every point.</span> <span data-i18n="hero.h1b">Power in every play.</span></h1>
       <p class="alt-line"><span class="chip" data-other-code aria-hidden="true">FR</span><span data-other="hero.line" lang="fr">Fierté à chaque point. Puissance à chaque échange.</span></p>
@@ -691,7 +685,7 @@ button{font:inherit}
 
   <section class="follow sec on-dark" id="follow" aria-labelledby="follow-h">
     <div class="wrap follow-in">
-      <div class="crest-lg"><span class="brand-wordmark"><span>Montréal</span><strong>Lions</strong></span></div>
+      <div class="crest-lg"><img src="img/logo-on-dark.svg" width="169" height="318" loading="lazy" alt="Montreal Lions crest" data-i18n-alt="crestAlt"></div>
       <h2 id="follow-h" data-i18n="follow.h">Follow the Pride</h2>
       <p class="alt-line"><span class="chip" data-other-code aria-hidden="true">FR</span><span data-other="follow.h" lang="fr">Suivez les Lions</span></p>
       <p class="follow-p" data-i18n="follow.p">Match days, team news and behind-the-scenes moments, on Instagram and Facebook.</p>
@@ -708,7 +702,7 @@ button{font:inherit}
 <footer class="foot on-dark">
   <div class="wrap">
     <div class="foot-grid">
-      <div class="foot-logo"><span class="brand-wordmark"><span>Montréal</span><strong>Lions</strong></span></div>
+      <img class="foot-logo" src="img/logo-on-dark.svg" width="169" height="318" loading="lazy" alt="Montreal Lions crest" data-i18n-alt="crestAlt">
       <div>
         <p class="foot-tag" data-i18n="hero.line">Pride in every point. Power in every play.</p>
         <p class="foot-league">Montreal Lions · Canadian National Pickleball League</p>
